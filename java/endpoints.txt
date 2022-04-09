@@ -1,0 +1,16 @@
+/landmarks
+-Post -> add a landmark
+
+/landmarks/{id}
+-Get -> get a landmark
+
+Landmark Object ->
+{
+  "name": "the name",
+  "description" : "the description",
+  "address_line_1" : "line1",
+  "address_line_2" : "line2",
+  "state" : "LA",
+  "city" : "New Orleans",
+  "zipcode" : 15569
+}

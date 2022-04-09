@@ -35,7 +35,7 @@ CREATE TABLE landmark(
 	name varchar(260) not null,
 	description text,
     address_id  bigint not null,
-
+	image_path varchar(120),
     constraint fk_address_id foreign key (address_id) references address(address_id)  
 );
 
@@ -48,9 +48,9 @@ INSERT INTO address (address_line_1, city, state, zipcode) VALUES
 ('615 Pere Antonie Aly', 'New Orleans', 'LA', 70116),
 ('7 Bamboo Rd', 'New Orleans', 'LA', 70124);
 
-INSERT INTO landmark(name, address_id, description) VALUES
-('Garden District', 1, 'An area of the city that features numerous historic homes.'),
-('St. Louis Cathedral', 2, 'The major landmark of the French Quarter is the oldest continuously active cathedral in the U.S.'),
-('Longue Vue House and Gardens', 3, 'Longue Vue House and Gardens is a multifaceted historic estate featuring a world-class house museum and eight acres of stunning gardens that include an interactive Discovery Garden for children of all ages.');
+INSERT INTO landmark(name, address_id, description, image_path) VALUES
+('Garden District', 1, 'An area of the city that features numerous historic homes.', 'img1.jpg'),
+('St. Louis Cathedral', 2, 'The major landmark of the French Quarter is the oldest continuously active cathedral in the U.S.', 'img1.jpg'),
+('Longue Vue House and Gardens', 3, 'Longue Vue House and Gardens is a multifaceted historic estate featuring a world-class house museum and eight acres of stunning gardens that include an interactive Discovery Garden for children of all ages.', 'img1.jpg');
 
 COMMIT TRANSACTION;
