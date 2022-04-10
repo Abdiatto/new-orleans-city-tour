@@ -38,8 +38,47 @@ CREATE TABLE landmark(
 
     constraint fk_address_id foreign key (address_id) references address(address_id)  
 );
+CREATE TABLE districts(
+district_id serial primary key,
+district_name varchar(500),
+address_id bigint not null,
+constraint fk_address_id foreign key (address_id) references address(address_id)
+);
+CREATE TABLE reviews(
+review_id serial primary key,
+user_id bigint not null, 
+content text, 
+thumbs_up boolean,
+constraint fk_user_id foreign key (user_id) references users(user_id)
+);
+CREATE TABLE photos(
+photo_id serial primary key,
+user_id bigint,
+photo_path varchar(500),
+featured boolean not null, 
+constraint fk_user_id foreign key (user_id) references users(user_id)
+);
+CREATE TABLE landmarks_photos(
+photo_id bigint not null,
+landmark_id bigint not null,
+constraint fk_photo_id foreign key(photo_id) references photos(photo_id),
+constraint fk_landmark_id foreign key(landmark_id) references landmarks(landmark_id),
+constraint pk_landmarks_photos primary key(photo_id,landmark_id)
+);
+CREATE TABLE itinerary(
+itinerary_id serial primary key,
+user_id bigint not null,
+starting_point varchar(500) not null
+constraint fk_user_id foreign key (user_id) references users(user_id)
+); 
 
-
+CREATE TABLE landmarks_itinerary(
+itinerary_id bigint not null,
+landmark_id bigint not null,
+constraint fk_landmark_id foreign key(landmark_id) references landmarks(landmark_id),
+constraint fk_itinerary_id foreign key(itinerary_id) references itinerary(itinerary_id),
+constraint pk_landmarks_itinerary primary key(itinerary_id,landmark_id)
+);
 
 INSERT INTO users (username,password_hash,role) VALUES ('user','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
 INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
