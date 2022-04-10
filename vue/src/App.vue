@@ -16,3 +16,5 @@
 import "@picocss/pico";
 export default {};
 </script>
+
+<style></style>
