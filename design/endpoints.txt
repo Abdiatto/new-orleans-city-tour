@@ -4,13 +4,21 @@
 /landmarks/{id}
 -Get -> get a landmark
 
-Landmark Object ->
+Landmark Object ->    photos can be null on post?
 {
-  "name": "the name",
-  "description" : "the description",
-  "address_line_1" : "line1",
-  "address_line_2" : "line2",
+  "name": "the name of the landmark",
+  "content" : "the description/details of the landmark",
+  "addressLineOne" : "line1",
+  "addressLineTwo" : "line2",
   "state" : "LA",
   "city" : "New Orleans",
-  "zipcode" : 15569
+  "zipcode" : 15569,
+  "photos" : [{photo object},{photo object}]
+}
+
+Photos Object ->
+{
+  "username" : "the user name or null",
+  "path" : "the path to the photo",
+  "isFeatured" : "true or false"
 }
