@@ -1,6 +1,7 @@
 <template>
   <article>
     <h2>{{ activeLandmark.name }}</h2>
+    <dynamic-image :imagePath="activeLandmark.photos[0].path" />
     <p>
       {{ activeLandmark.content }}
     </p>
