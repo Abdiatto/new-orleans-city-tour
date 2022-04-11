@@ -6,6 +6,7 @@
   >
     <h4>{{ activeLandMark.name }}</h4>
     <p>{{ activeLandMark.content }}</p>
+    <dynamic-image :imagePath="activeLandMark.photos[0].path" />
   </router-link>
 </template>
 
