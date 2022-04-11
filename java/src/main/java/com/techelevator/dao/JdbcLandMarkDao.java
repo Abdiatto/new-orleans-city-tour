@@ -20,7 +20,7 @@ public class JdbcLandMarkDao implements LandMarkDao{
     @Override
     public List<LandMark> list() {
         List<LandMark> landMarks = new ArrayList<>();
-        String sqlCode = " ";
+        String sqlCode = " SELECT landmark_id, name, content FROM landmarks ";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sqlCode);
         while (results.next()){
             landMarks.add(mapRowToLandmark(results));
