@@ -2,7 +2,13 @@ BEGIN TRANSACTION;
 
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS address;
-DROP TABLE IF EXISTS landmark;
+DROP TABLE IF EXISTS landmarks;
+DROP TABLE IF EXISTS districts;
+DROP TABLE IF EXISTS reviews;
+DROP TABLE IF EXISTS photos;
+DROP TABLE IF EXISTS landmarks_photos;
+DROP TABLE IF EXISTS itinerary;
+DROP TABLE IF EXISTS landmarks_itinerary; 
 DROP SEQUENCE IF EXISTS seq_user_id;
 
 CREATE SEQUENCE seq_user_id
@@ -30,14 +36,14 @@ CREATE TABLE address (
 );
 
 
-CREATE TABLE landmark(
+CREATE TABLE landmarks(
 	landmark_id serial primary key,
 	name varchar(260) not null,
 	content text,
     address_id  bigint not null,
 	status varchar(12) not null,
-    constraint fk_address_id foreign key (address_id) references address(address_id),  
-	constraint chk_status check ('approved', 'pending', 'rejected')
+    constraint fk_address_id foreign key (address_id) references address(address_id) 
+	
 );
 CREATE TABLE districts(	
 	district_id serial primary key,
@@ -69,7 +75,7 @@ CREATE TABLE landmarks_photos(
 CREATE TABLE itinerary(
 	itinerary_id serial primary key,
 	user_id bigint not null,
-	starting_point varchar(500) not null
+	starting_point varchar(500) not null,
 	constraint fk_user_id foreign key (user_id) references users(user_id)
 ); 
 
@@ -89,14 +95,14 @@ INSERT INTO address (address_line_1, city, state, zipcode) VALUES
 ('615 Pere Antonie Aly', 'New Orleans', 'LA', 70116),
 ('7 Bamboo Rd', 'New Orleans', 'LA', 70124);
 
-INSERT INTO landmark(name, address_id, content, status) VALUES
+INSERT INTO landmarks(name, address_id, content, status) VALUES
 ('Garden District', 1, 'An area of the city that features numerous historic homes.', 'pending'),
 ('St. Louis Cathedral', 2, 'The major landmark of the French Quarter is the oldest continuously active cathedral in the U.S.', 'pending'),
 ('Longue Vue House and Gardens', 3, 'Longue Vue House and Gardens is a multifaceted historic estate featuring a world-class house museum and eight acres of stunning gardens that include an interactive Discovery Garden for children of all ages.', 'pending');
 INSERT INTO photos(user_id, photo_path, featured) 
-VALUES ('', 'garden_district.jpg', true),
-       ('', 'st_louis_catherdal.jpg', true),
-       ('', 'longue_vue_house_gardens.jpg', true);
+VALUES (2, 'garden_district.jpg', true),
+       (2, 'st_louis_catherdal.jpg', true),
+       (2, 'longue_vue_house_gardens.jpg', true);
 INSERT INTO landmarks_photos(landmark_id, photo_id) 
 VALUES (1,1),
        (2,2),
