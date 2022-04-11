@@ -1,11 +1,13 @@
 /landmarks
--Post -> add a landmark
+-Post -> add a landmark return landmark id
+-Get -> get a list of all landmarks
 
 /landmarks/{id}
 -Get -> get a landmark
 
 Landmark Object ->    photos can be null on post?
 {
+  "id": "landmark id ",
   "name": "the name of the landmark",
   "content" : "the description/details of the landmark",
   "addressLineOne" : "line1",
@@ -13,6 +15,7 @@ Landmark Object ->    photos can be null on post?
   "state" : "LA",
   "city" : "New Orleans",
   "zipcode" : 15569,
+  "district" : "a district id",
   "photos" : [{photo object},{photo object}]
 }
 

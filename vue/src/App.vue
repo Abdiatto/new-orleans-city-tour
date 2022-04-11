@@ -1,20 +1,27 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link v-bind:to="{ name: 'home' }">Home</router-link>&nbsp;|&nbsp;
-      <router-link
-        v-bind:to="{ name: 'logout' }"
-        v-if="$store.state.token != ''"
-        >Logout</router-link
-      >
-    </div>
+    <nav-bar />
+    <div class="clear"></div>
     <router-view />
   </div>
 </template>
 
 <script>
 import "@picocss/pico";
-export default {};
+import NavBar from "./components/NavBar.vue";
+
+export default {
+  components: { NavBar },
+};
 </script>
 
-<style></style>
+<style>
+.clear {
+  clear: both;
+  display: block;
+  overflow: hidden;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+</style>
