@@ -6,6 +6,8 @@ import Logout from "../views/Logout.vue";
 import Register from "../views/Register.vue";
 import store from "../store/index";
 import Add from "@/views/Add.vue";
+import Landmark from "@/views/Landmark.vue";
+import NotFound from "@/views/NotFound.vue";
 
 Vue.use(Router);
 
@@ -62,6 +64,22 @@ const router = new Router({
         requiresAuth: false,
       },
     },
+    {
+      path: "/landmark/:id",
+      name: "landmark",
+      component: Landmark,
+      meta: {
+        requiresAuth: false,
+      },
+    },
+    {
+      path: "*",
+      name: "not-found",
+      component: NotFound,
+      meta: {
+        requiresAuth: false,
+      },
+    },
   ],
 });
 
@@ -74,6 +92,15 @@ router.beforeEach((to, from, next) => {
     next("/login");
   } else {
     // Else let them go to their next destination
+    if (to.name === "landmark") {
+      const landmark = store.state.allLandmarks.find(
+        (l) => l.id == to.params.id
+      );
+      if (!landmark) {
+        next({ name: "not-found" });
+      }
+    }
+
     next();
   }
 });

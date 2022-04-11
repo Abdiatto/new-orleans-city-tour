@@ -1,5 +1,6 @@
 <template>
   <article>
+    <h2>Add A New Destination</h2>
     <add-landmark-form />
   </article>
 </template>
