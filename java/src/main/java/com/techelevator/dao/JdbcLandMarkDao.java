@@ -20,10 +20,10 @@ public class JdbcLandMarkDao implements LandMarkDao{
     @Override
     public List<LandMark> list() {
         List<LandMark> landMarks = new ArrayList<>();
-        String sqlCode = " SELECT landmarks.landmark_id, landmarks.name, landmarks.content, landmarks.address_id, " +
-                "address_line_1, address_line_2, city, state, zipcode, districts.district_name, districts.district_id FROM landmarks " +
+        String sqlCode = " SELECT landmarks.landmark_id, landmarks.name, landmarks.status, landmarks.content, landmarks.address_id, address_line_1, " +
+                "address_line_2, city, state, zipcode, districts.district_name, districts.district_id FROM landmarks " +
                 "JOIN address ON address.address_id = landmarks.landmark_id " +
-                "JOIN districts ON landmarks.district_id = districts.district_id ";
+                "JOIN districts ON landmarks.district_id = districts.district_id";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sqlCode);
         while (results.next()){
             landMarks.add(mapRowToLandmark(results));
@@ -44,18 +44,18 @@ public class JdbcLandMarkDao implements LandMarkDao{
         LandMark landMark = new LandMark();
         Address address = new Address();
         District district = new District();
-        landMark.setLandMarkId(row.getInt("LandMarkId"));
+        landMark.setLandMarkId(row.getInt("landmark_id"));
         landMark.setName(row.getString("name"));
         landMark.setContent(row.getString("content"));
         landMark.setStatus(row.getString("status"));
-        address.setAddressId(row.getInt("addressId"));
-        address.setAddressLineOne(row.getString("addressLineOne"));
-        address.setAddressLineTwo(row.getString("addressLineTwo"));
+        address.setAddressId(row.getInt("address_id"));
+        address.setAddressLineOne(row.getString("address_line_1"));
+        address.setAddressLineTwo(row.getString("address_line_2"));
         address.setState(row.getString("state"));
         address.setCity(row.getString("city"));
-        address.setZipCode(row.getInt("zipCode"));
-        district.setDistrictId(row.getInt("districtId"));
-        district.setName(row.getString("name"));
+        address.setZipCode(row.getInt("zipcode"));
+        district.setDistrictId(row.getInt("district_id"));
+        district.setName(row.getString("district_name"));
         landMark.setAddress(address);
         landMark.setDistrict(district);
         return landMark;
