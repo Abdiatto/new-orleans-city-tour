@@ -1,41 +1,43 @@
 package com.techelevator.model;
 
 public class LandMark {
-    private int landMarkId;
-    private String name;
-    private String content;
-    private Address address;
 
-//setters and getters
-    public int getLandMarkId() {
-        return landMarkId;
-    }
+        private int landMarkId;
+        private String name;
+        private String content;
+        private Address address;
 
-    public void setLandMarkId(int landMarkId) {
-        this.landMarkId = landMarkId;
-    }
+        //setters and getters
+        public int getLandMarkId() {
+            return landMarkId;
+        }
 
-    public String getName() {
-        return name;
-    }
+        public void setLandMarkId(int landMarkId) {
+            this.landMarkId = landMarkId;
+        }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+        public String getName() {
+            return name;
+        }
 
-    public String getContent() {
-        return content;
-    }
+        public void setName(String name) {
+            this.name = name;
+        }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
+        public String getContent() {
+            return content;
+        }
 
-    public Address getAddress() {
-        return address;
-    }
+        public void setContent(String content) {
+            this.content = content;
+        }
 
-    public void setAddress(Address address) {
-        this.address = address;
-    }
+        public Address getAddress() {
+            return address;
+        }
+
+        public void setAddress(Address address) {
+            this.address = address;
+        }
+
 }
