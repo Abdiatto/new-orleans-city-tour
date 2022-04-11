@@ -65,8 +65,8 @@ const router = new Router({
       },
     },
     {
-      path: "/landmark/:id",
-      name: "landmark",
+      path: "/landmarks/:id",
+      name: "landmarks",
       component: Landmark,
       meta: {
         requiresAuth: false,
@@ -92,7 +92,7 @@ router.beforeEach((to, from, next) => {
     next("/login");
   } else {
     // Else let them go to their next destination
-    if (to.name === "landmark") {
+    if (to.name === "landmarks") {
       const landmark = store.state.allLandmarks.find(
         (l) => l.id == to.params.id
       );

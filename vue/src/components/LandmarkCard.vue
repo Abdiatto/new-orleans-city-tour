@@ -1,15 +1,30 @@
 <template>
-  <article>
-    <h3>{{ landmark.name }}</h3>
-    <p>{{ landmark.content }}</p>
-  </article>
+  <router-link
+    v-bind:to="{ name: 'landmarks', params: { id: activeLandMark.id } }"
+    tag="article"
+    class="landmark-card"
+  >
+    <h4>{{ activeLandMark.name }}</h4>
+    <p>{{ activeLandMark.content }}</p>
+  </router-link>
 </template>
 
 <script>
 export default {
   name: "landmark-card",
-  props: ["landmark"],
+  props: ["landmarkId"],
+  computed: {
+    activeLandMark() {
+      return this.$store.state.allLandmarks.find(
+        (l) => l.id == this.landmarkId
+      );
+    },
+  },
 };
 </script>
 
-<style></style>
+<style>
+.landmark-card:hover {
+  cursor: pointer;
+}
+</style>
