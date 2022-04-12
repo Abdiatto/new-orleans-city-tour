@@ -33,8 +33,18 @@ public class JdbcLandMarkDao implements LandMarkDao{
 
     @Override
     public LandMark Add(LandMark landMark) {
+        String sql = "INSERT INTO address(address_id, address_line_1, address_line_2, city, state, zipcode) VALUES(DEFAULT,?, ?, ?, ?,?)"
+                + "RETURNING address_id ";
+        Integer id = jdbcTemplate.queryForObject(sql, Integer.class, landMark.getAddress().getAddressLineOne(), landMark.getAddress().getAddressLineTwo(),
+                landMark.getAddress().getCity(), landMark.getAddress().getState(), landMark.getAddress().getZipCode());
+        String sql2 = "INSERT INTO landmarks(landmark_id, name, content, address_id, status, district_id) " +
+                "VALUES(DEFAULT, ?, ?, ?, ?, ?) RETURNING landmark_id";
+        Integer id2 = jdbcTemplate.queryForObject(sql2, Integer.class, landMark.getName(), landMark.getContent(),
+                id, landMark.getStatus(), landMark.getDistrict());
         return null;
     }
+
+
     @Override
     public LandMark get(int landMarkID) {
         return null;
@@ -57,7 +67,7 @@ public class JdbcLandMarkDao implements LandMarkDao{
         district.setDistrictId(row.getInt("district_id"));
         district.setName(row.getString("district_name"));
         landMark.setAddress(address);
-        landMark.setDistrict(district);
+        landMark.setDistrict(district.getDistrictId());
         return landMark;
     }
 }

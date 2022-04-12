@@ -7,7 +7,6 @@ public class Address {
     private String state;
     private String city;
     private int zipCode;
-    private District district;
 
     //getters and setters
 
@@ -60,11 +59,4 @@ public class Address {
         this.zipCode = zipCode;
     }
 
-    public District getDistrict() {
-        return district;
-    }
-
-    public void setDistrict(District district) {
-        this.district = district;
-    }
 }

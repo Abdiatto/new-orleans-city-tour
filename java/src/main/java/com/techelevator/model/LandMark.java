@@ -6,9 +6,22 @@ public class LandMark {
     private String content;
     private String status;
     private Address address;
-    private District district;
+    private int district;
 
     //getters and setters
+
+
+    public LandMark() {
+    }
+
+    public LandMark(int landMarkId, String name, String content, String status, Address address, int district) {
+        this.landMarkId = landMarkId;
+        this.name = name;
+        this.content = content;
+        this.status = status;
+        this.address = address;
+        this.district = district;
+    }
 
     public int getLandMarkId() {
         return landMarkId;
@@ -50,11 +63,11 @@ public class LandMark {
         this.address = address;
     }
 
-    public District getDistrict() {
+    public int getDistrict() {
         return district;
     }
 
-    public void setDistrict(District district) {
+    public void setDistrict(int district) {
         this.district = district;
     }
 }
