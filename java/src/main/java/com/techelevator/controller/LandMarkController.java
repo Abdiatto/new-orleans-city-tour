@@ -1,12 +1,13 @@
 package com.techelevator.controller;
 
 import com.techelevator.dao.LandMarkDao;
+import com.techelevator.model.Address;
 import com.techelevator.model.LandMark;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import com.techelevator.model.LandmarkDTO;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 @RestController
 public class LandMarkController {
@@ -19,9 +20,15 @@ public class LandMarkController {
     public List<LandMark> list() {
         return landMarkDao.list();
     }
+
     @RequestMapping(path="/landmarks/{id}", method = RequestMethod.GET)
     public LandMark get(@PathVariable("id") int landMarkId){
         return landMarkDao.get(landMarkId);
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
+    @RequestMapping(path="/landmarks", method = RequestMethod.POST)
+    public void post(@Valid @RequestBody LandmarkDTO landmarkDTO) {
+        landMarkDao.Add(landmarkDTO);
+    }
 }
