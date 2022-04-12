@@ -1,5 +1,6 @@
 package com.techelevator.controller;
 
+import com.techelevator.dao.DistrictDao;
 import com.techelevator.dao.LandMarkDao;
 import com.techelevator.model.Address;
 import com.techelevator.model.District;
@@ -14,9 +15,11 @@ import java.util.List;
 @CrossOrigin
 public class LandMarkController {
     private LandMarkDao landMarkDao;
+    private DistrictDao districtDao;
 
-    public LandMarkController(LandMarkDao landMarkDao) {
+    public LandMarkController(LandMarkDao landMarkDao, DistrictDao districtDao) {
         this.landMarkDao = landMarkDao;
+        this.districtDao = districtDao;
     }
     @RequestMapping(path="/landmarks", method = RequestMethod.GET)
     public List<LandMark> list() {
@@ -36,6 +39,6 @@ public class LandMarkController {
 
     @RequestMapping(path="/districts", method=RequestMethod.GET)
     public List<District> getDistricts() {
-        return landMarkDao.getDistricts();
+        return districtDao.list();
     }
 }

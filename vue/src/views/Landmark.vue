@@ -1,7 +1,10 @@
 <template>
   <article>
     <h2>{{ activeLandmark.name }}</h2>
-    <dynamic-image :imagePath="activeLandmark.photos[0].path" />
+    <dynamic-image
+      :imagePath="activeLandmark.photos[0].path"
+      :altText="`Picture of ${activeLandmark.name}`"
+    />
     <p>
       {{ activeLandmark.content }}
     </p>
