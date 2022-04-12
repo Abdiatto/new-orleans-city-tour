@@ -2,7 +2,9 @@
   <div id="app">
     <nav-bar />
     <div class="clear"></div>
-    <router-view />
+    <main class="container">
+      <router-view />
+    </main>
   </div>
 </template>
 

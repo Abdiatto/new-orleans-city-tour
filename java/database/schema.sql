@@ -34,7 +34,10 @@ CREATE TABLE address (
 	state varchar(2) not null,
 	zipcode int not null
 );
-
+CREATE TABLE districts(	
+	district_id serial primary key,
+	district_name varchar(500)
+);
 
 CREATE TABLE landmarks(
 	landmark_id serial primary key,
@@ -42,15 +45,12 @@ CREATE TABLE landmarks(
 	content text,
     address_id  bigint not null,
 	status varchar(12) not null,
+	district_id bigint not null,
+	constraint fk_district_id foreign key (district_id) references districts(district_id),
     constraint fk_address_id foreign key (address_id) references address(address_id) 
 	
 );
-CREATE TABLE districts(	
-	district_id serial primary key,
-	district_name varchar(500),
-	address_id bigint not null,
-	constraint fk_address_id foreign key (address_id) references address(address_id)
-);
+
 CREATE TABLE reviews(
 	review_id serial primary key,
 	user_id bigint not null, 
@@ -94,11 +94,15 @@ INSERT INTO address (address_line_1, city, state, zipcode) VALUES
 ('St Charles Avenue', 'New Orleans', 'LA', 70130),
 ('615 Pere Antonie Aly', 'New Orleans', 'LA', 70116),
 ('7 Bamboo Rd', 'New Orleans', 'LA', 70124);
+INSERT INTO districts (district_name) VALUES 
+('central city'),
+('two'),
+('three');	
 
-INSERT INTO landmarks(name, address_id, content, status) VALUES
-('Garden District', 1, 'An area of the city that features numerous historic homes.', 'pending'),
-('St. Louis Cathedral', 2, 'The major landmark of the French Quarter is the oldest continuously active cathedral in the U.S.', 'pending'),
-('Longue Vue House and Gardens', 3, 'Longue Vue House and Gardens is a multifaceted historic estate featuring a world-class house museum and eight acres of stunning gardens that include an interactive Discovery Garden for children of all ages.', 'pending');
+INSERT INTO landmarks(name, address_id, content, status, district_id) VALUES
+('Garden District', 1, 'An area of the city that features numerous historic homes.', 'approved', 1),
+('St. Louis Cathedral', 2, 'The major landmark of the French Quarter is the oldest continuously active cathedral in the U.S.', 'approved', 2),
+('Longue Vue House and Gardens', 3, 'Longue Vue House and Gardens is a multifaceted historic estate featuring a world-class house museum and eight acres of stunning gardens that include an interactive Discovery Garden for children of all ages.', 'approved', 3);
 INSERT INTO photos(user_id, photo_path, featured) 
 VALUES (2, 'garden_district.jpg', true),
        (2, 'st_louis_catherdal.jpg', true),
@@ -107,4 +111,5 @@ INSERT INTO landmarks_photos(landmark_id, photo_id)
 VALUES (1,1),
        (2,2),
        (3,3);
+   
 COMMIT TRANSACTION;
