@@ -1,5 +1,5 @@
 <template>
-  <form v-on:submit.prevent="addLandmark">
+  <form v-on:submit.prevent="saveLandmark">
     <label for="name"
       >Location Name<input
         type="text"
@@ -49,7 +49,7 @@
           id="zipcode"
           placeholder="70119"
           required
-          v-model="newLandmark.zipcode"
+          v-model="newLandmark.zipCode"
         />
       </label>
       <label for="district">
@@ -63,13 +63,29 @@
         </select>
       </label>
     </div>
+    <label for="imagePath">
+      Path to Image
+      <input
+        type="url"
+        name="imagePath"
+        id="imagePath"
+        v-model="newLandmark.photoPath"
+      />
+    </label>
     <label for="content">About {{ newLandmark.name || "New Location" }} </label>
-    <textarea name="content" id="content" cols="30" rows="10"></textarea>
+    <textarea
+      name="content"
+      id="content"
+      cols="30"
+      rows="10"
+      v-model="newLandmark.content"
+    ></textarea>
     <button type="submit">Submit</button>
   </form>
 </template>
 
 <script>
+import landmarkService from "@/services/LandmarkService.js";
 export default {
   name: "add-landmark-form",
   data() {
@@ -78,17 +94,21 @@ export default {
         name: "",
         addressLineOne: "",
         addressLineTwo: "",
+        status: "approved",
         state: "LA",
         city: "New Orleans",
-        zipcode: "",
-        district: "",
+        zipCode: "",
+        district_id: 1,
         content: "",
+        photoPath: "",
       },
     };
   },
   methods: {
     saveLandmark() {
-      console.log(this.landmark);
+      landmarkService.addLandmark(this.newLandmark).then(() => {
+        this.$store.dispatch("getLandmarks");
+      });
     },
   },
 };

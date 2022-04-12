@@ -2,11 +2,11 @@
   <div class="home">
     <h1>Visit the Big Easy</h1>
     <div class="grid">
-      <landmark-card v-bind:landmarkId="0" />
-      <landmark-card v-bind:landmarkId="1" />
-      <landmark-card v-bind:landmarkId="2" />
-      <landmark-card v-bind:landmarkId="2" />
-      <landmark-card v-bind:landmarkId="2" />
+      <landmark-card
+        v-for="l in $store.state.allLandmarks"
+        v-bind:key="l.landMarkId"
+        v-bind:landmarkId="l.landMarkId"
+      />
     </div>
   </div>
 </template>

@@ -61,7 +61,7 @@ CREATE TABLE reviews(
 CREATE TABLE photos(
 	photo_id serial primary key,
 	user_id bigint,
-	photo_path varchar(50),
+	photo_path varchar(300),
 	featured boolean not null, 
 	constraint fk_user_id foreign key (user_id) references users(user_id)
 );

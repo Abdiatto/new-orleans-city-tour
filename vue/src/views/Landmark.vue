@@ -16,7 +16,7 @@ export default {
   computed: {
     activeLandmark() {
       return this.$store.state.allLandmarks.find((landmark) => {
-        return landmark.id == this.$store.state.activeLandmarkId;
+        return landmark.landMarkId == this.$store.state.activeLandmarkId;
       });
     },
   },

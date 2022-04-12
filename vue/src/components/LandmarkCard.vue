@@ -1,6 +1,6 @@
 <template>
   <router-link
-    v-bind:to="{ name: 'landmarks', params: { id: activeLandMark.id } }"
+    v-bind:to="{ name: 'landmarks', params: { id: activeLandMark.landMarkId } }"
     tag="article"
     class="landmark-card"
   >
@@ -17,7 +17,7 @@ export default {
   computed: {
     activeLandMark() {
       return this.$store.state.allLandmarks.find(
-        (l) => l.id == this.landmarkId
+        (l) => l.landMarkId == this.landmarkId
       );
     },
   },

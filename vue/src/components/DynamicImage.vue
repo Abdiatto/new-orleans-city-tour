@@ -1,5 +1,5 @@
 <template>
-  <img :src="require('../assets/landmark_images/' + imagePath)" alt="" />
+  <img :src="imagePath" alt="" />
 </template>
 
 <script>
