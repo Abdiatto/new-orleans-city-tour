@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
+import landmarkService from "@/services/LandmarkService.js";
 
 Vue.use(Vuex);
 
@@ -21,51 +22,8 @@ export default new Vuex.Store({
     token: currentToken || "",
     user: currentUser || {},
     activeLandmarkId: 0,
-    allLandmarks: [
-      {
-        id: 0,
-        name: "Garden District",
-        content: "the description/details of the landmark",
-        addressLineOne: "line1",
-        addressLineTwo: "line2",
-        state: "LA",
-        city: "New Orleans",
-        zipcode: 15569,
-        photos: [{ path: "garden_district.jpg", isFeatured: true }],
-      },
-      {
-        id: 1,
-        name: "Longue Vue House Gardens",
-        content: "the description/details of the landmark",
-        addressLineOne: "line1",
-        addressLineTwo: "line2",
-        state: "LA",
-        city: "New Orleans",
-        zipcode: 15569,
-        photos: [
-          {
-            path: "longue_vue_house_gardens.jpg",
-            isFeatured: true,
-          },
-        ],
-      },
-      {
-        id: 2,
-        name: "St Louis Cathedral",
-        content: "the description/details of the landmark",
-        addressLineOne: "line1",
-        addressLineTwo: "line2",
-        state: "LA",
-        city: "New Orleans",
-        zipcode: 15569,
-        photos: [
-          {
-            path: "st_louis_catherdal.jpg",
-            isFeatured: true,
-          },
-        ],
-      },
-    ],
+    allLandmarks: [],
+    allDistricts: [],
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -86,6 +44,24 @@ export default new Vuex.Store({
     },
     SET_ACTIVE_LANDMARK(state, id) {
       state.activeLandmarkId = id;
+    },
+    SET_LANDMARKS(state, landmarks) {
+      state.allLandmarks = landmarks;
+    },
+    SET_DISTRICTS(state, districts) {
+      state.allDistricts = districts;
+    },
+  },
+  actions: {
+    getLandmarks({ commit }) {
+      landmarkService.getLandmarks().then((response) => {
+        commit("SET_LANDMARKS", response.data);
+      });
+    },
+    getDistricts({ commit }) {
+      landmarkService.getDistricts().then((response) => {
+        commit("SET_DISTRICTS", response.data);
+      });
     },
   },
 });

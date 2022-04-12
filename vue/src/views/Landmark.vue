@@ -1,7 +1,10 @@
 <template>
   <article>
     <h2>{{ activeLandmark.name }}</h2>
-    <dynamic-image :imagePath="activeLandmark.photos[0].path" />
+    <dynamic-image
+      :imagePath="activeLandmark.photos[0].path"
+      :altText="`Picture of ${activeLandmark.name}`"
+    />
     <p>
       {{ activeLandmark.content }}
     </p>
@@ -16,7 +19,7 @@ export default {
   computed: {
     activeLandmark() {
       return this.$store.state.allLandmarks.find((landmark) => {
-        return landmark.id == this.$store.state.activeLandmarkId;
+        return landmark.landMarkId == this.$store.state.activeLandmarkId;
       });
     },
   },
