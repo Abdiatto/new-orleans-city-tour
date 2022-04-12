@@ -20,26 +20,15 @@ public class LandMarkController {
     public List<LandMark> list() {
         return landMarkDao.list();
     }
+
     @RequestMapping(path="/landmarks/{id}", method = RequestMethod.GET)
     public LandMark get(@PathVariable("id") int landMarkId){
         return landMarkDao.get(landMarkId);
     }
-    @ResponseStatus(HttpStatus.CREATED)
-    @RequestMapping(path="/landmarks/add", method = RequestMethod.POST)
-    public void post(@Valid @RequestBody LandmarkDTO landmarkDTO) {
-        Address address = new Address();
-        address.setAddressLineOne(landmarkDTO.getAddressLineOne());
-        address.setAddressLineTwo(landmarkDTO.getAddressLineTwo());
-        address.setCity(landmarkDTO.getCity());
-        address.setState(landmarkDTO.getState());
-        address.setZipCode(landmarkDTO.getZipCode());
-        landMarkDao.Add(new LandMark(
-                landmarkDTO.getLandMarkId(),
-                landmarkDTO.getName(),
-                landmarkDTO.getContent(),
-                landmarkDTO.getStatus(),
-                address,
-                landmarkDTO.getDistrict_id()));
-    }
 
+    @ResponseStatus(HttpStatus.CREATED)
+    @RequestMapping(path="/landmarks", method = RequestMethod.POST)
+    public void post(@Valid @RequestBody LandmarkDTO landmarkDTO) {
+        landMarkDao.Add(landmarkDTO);
+    }
 }

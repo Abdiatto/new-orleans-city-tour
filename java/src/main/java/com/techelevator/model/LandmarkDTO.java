@@ -4,8 +4,6 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Positive;
 
 public class LandmarkDTO {
-    @Positive
-    private int landMarkId;
     @NotEmpty
     private String name;
     @NotEmpty
@@ -23,16 +21,10 @@ public class LandmarkDTO {
     private int zipCode;
     @Positive
     private int district_id;
+    @NotEmpty
+    private String photoPath;
 
     //getters and setters
-
-    public int getLandMarkId() {
-        return landMarkId;
-    }
-
-    public void setLandMarkId(int landMarkId) {
-        this.landMarkId = landMarkId;
-    }
 
     public String getName() {
         return name;
@@ -76,6 +68,14 @@ public class LandmarkDTO {
 
     public String getState() {
         return state;
+    }
+
+    public String getPhotoPath() {
+        return photoPath;
+    }
+
+    public void setPhotoPath(String photoPath) {
+        this.photoPath = photoPath;
     }
 
     public void setState(String state) {

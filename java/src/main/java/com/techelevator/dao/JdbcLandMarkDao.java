@@ -1,8 +1,6 @@
 package com.techelevator.dao;
 
-import com.techelevator.model.Address;
-import com.techelevator.model.District;
-import com.techelevator.model.LandMark;
+import com.techelevator.model.*;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
@@ -12,8 +10,9 @@ import java.util.List;
 @Component
 public class JdbcLandMarkDao implements LandMarkDao{
     private JdbcTemplate jdbcTemplate;
-
-    public JdbcLandMarkDao(JdbcTemplate jdbcTemplate) {
+    private PhotoDao photoDao;
+    public JdbcLandMarkDao(JdbcTemplate jdbcTemplate, PhotoDao photoDao) {
+        this.photoDao = photoDao;
         this.jdbcTemplate = jdbcTemplate;
     }
 
@@ -32,15 +31,14 @@ public class JdbcLandMarkDao implements LandMarkDao{
     }
 
     @Override
-    public LandMark Add(LandMark landMark) {
-        String sql = "INSERT INTO address(address_id, address_line_1, address_line_2, city, state, zipcode) VALUES(DEFAULT,?, ?, ?, ?,?)"
+    public LandMark Add(LandmarkDTO landMark) {
+        String sql = "INSERT INTO address(address_line_1, address_line_2, city, state, zipcode) VALUES(?,?,?,?,?) "
                 + "RETURNING address_id ";
-        Integer id = jdbcTemplate.queryForObject(sql, Integer.class, landMark.getAddress().getAddressLineOne(), landMark.getAddress().getAddressLineTwo(),
-                landMark.getAddress().getCity(), landMark.getAddress().getState(), landMark.getAddress().getZipCode());
+        Integer id = jdbcTemplate.queryForObject(sql, Integer.class, landMark.getAddressLineOne(), landMark.getAddressLineTwo(), landMark.getCity(), landMark.getState(),landMark.getZipCode());
         String sql2 = "INSERT INTO landmarks(landmark_id, name, content, address_id, status, district_id) " +
                 "VALUES(DEFAULT, ?, ?, ?, ?, ?) RETURNING landmark_id";
-        Integer id2 = jdbcTemplate.queryForObject(sql2, Integer.class, landMark.getName(), landMark.getContent(),
-                id, landMark.getStatus(), landMark.getDistrict());
+        Integer id2 = jdbcTemplate.queryForObject(sql2, Integer.class, landMark.getName(),landMark.getContent(),id,"approved",landMark.getDistrict_id());
+        photoDao.add(id2,landMark.getPhotoPath());
         return null;
     }
 
@@ -54,6 +52,8 @@ public class JdbcLandMarkDao implements LandMarkDao{
         LandMark landMark = new LandMark();
         Address address = new Address();
         District district = new District();
+        List<Photo> photos = photoDao.list(row.getInt("landmark_id"));
+        landMark.setPhotos(photos);
         landMark.setLandMarkId(row.getInt("landmark_id"));
         landMark.setName(row.getString("name"));
         landMark.setContent(row.getString("content"));
@@ -67,7 +67,7 @@ public class JdbcLandMarkDao implements LandMarkDao{
         district.setDistrictId(row.getInt("district_id"));
         district.setName(row.getString("district_name"));
         landMark.setAddress(address);
-        landMark.setDistrict(district.getDistrictId());
+        landMark.setDistrict(district);
         return landMark;
     }
 }

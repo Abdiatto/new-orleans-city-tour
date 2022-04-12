@@ -1,20 +1,30 @@
 package com.techelevator.model;
 
+import java.util.List;
+
 public class LandMark {
     private int landMarkId;
     private String name;
     private String content;
     private String status;
     private Address address;
-    private int district;
+    private District district;
+    private List<Photo> photos;
 
-    //getters and setters
+    public List<Photo> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(List<Photo> photos) {
+        this.photos = photos;
+    }
+//getters and setters
 
 
     public LandMark() {
     }
 
-    public LandMark(int landMarkId, String name, String content, String status, Address address, int district) {
+    public LandMark(int landMarkId, String name, String content, String status, Address address, District district) {
         this.landMarkId = landMarkId;
         this.name = name;
         this.content = content;
@@ -63,11 +73,11 @@ public class LandMark {
         this.address = address;
     }
 
-    public int getDistrict() {
+    public District getDistrict() {
         return district;
     }
 
-    public void setDistrict(int district) {
+    public void setDistrict(District district) {
         this.district = district;
     }
 }
