@@ -108,6 +108,8 @@ export default {
     saveLandmark() {
       landmarkService.addLandmark(this.newLandmark).then(() => {
         this.$store.dispatch("getLandmarks");
+        this.$store.dispatch("getDistricts");
+        this.$router.push({ name: "home" });
       });
     },
   },

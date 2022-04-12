@@ -23,6 +23,7 @@ export default new Vuex.Store({
     user: currentUser || {},
     activeLandmarkId: 0,
     allLandmarks: [],
+    allDistricts: [],
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -47,11 +48,19 @@ export default new Vuex.Store({
     SET_LANDMARKS(state, landmarks) {
       state.allLandmarks = landmarks;
     },
+    SET_DISTRICTS(state, districts) {
+      state.allDistricts = districts;
+    },
   },
   actions: {
     getLandmarks({ commit }) {
       landmarkService.getLandmarks().then((response) => {
         commit("SET_LANDMARKS", response.data);
+      });
+    },
+    getDistricts({ commit }) {
+      landmarkService.getDistricts().then((response) => {
+        commit("SET_DISTRICTS", response.data);
       });
     },
   },
