@@ -48,6 +48,11 @@ public class JdbcLandMarkDao implements LandMarkDao{
         return null;
     }
 
+    @Override
+    public List<District> getDistricts(){
+        return null;
+    }
+
    private LandMark mapRowToLandmark(SqlRowSet row){
         LandMark landMark = new LandMark();
         Address address = new Address();

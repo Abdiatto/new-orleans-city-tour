@@ -94,7 +94,7 @@ router.beforeEach((to, from, next) => {
     // Else let them go to their next destination
     if (to.name === "landmarks") {
       const landmark = store.state.allLandmarks.find(
-        (l) => l.id == to.params.id
+        (l) => l.landMarkId == to.params.id
       );
       if (!landmark) {
         next({ name: "not-found" });

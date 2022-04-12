@@ -1,12 +1,15 @@
 <template>
   <router-link
-    v-bind:to="{ name: 'landmarks', params: { id: activeLandMark.id } }"
+    v-bind:to="{ name: 'landmarks', params: { id: activeLandMark.landMarkId } }"
     tag="article"
     class="landmark-card"
   >
     <h4>{{ activeLandMark.name }}</h4>
     <p>{{ activeLandMark.content }}</p>
-    <dynamic-image :imagePath="activeLandMark.photos[0].path" />
+    <dynamic-image
+      :imagePath="activeLandMark.photos[0].path"
+      :altText="`Picture of ${activeLandMark.name}`"
+    />
   </router-link>
 </template>
 
@@ -17,7 +20,7 @@ export default {
   computed: {
     activeLandMark() {
       return this.$store.state.allLandmarks.find(
-        (l) => l.id == this.landmarkId
+        (l) => l.landMarkId == this.landmarkId
       );
     },
   },
