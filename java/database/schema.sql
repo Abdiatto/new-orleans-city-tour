@@ -1,14 +1,13 @@
 BEGIN TRANSACTION;
-
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS address;
-DROP TABLE IF EXISTS landmarks;
-DROP TABLE IF EXISTS districts;
 DROP TABLE IF EXISTS reviews;
-DROP TABLE IF EXISTS photos;
 DROP TABLE IF EXISTS landmarks_photos;
-DROP TABLE IF EXISTS itinerary;
 DROP TABLE IF EXISTS landmarks_itinerary; 
+DROP TABLE IF EXISTS landmarks;
+DROP TABLE IF EXISTS address;
+DROP TABLE IF EXISTS itinerary;
+DROP TABLE IF EXISTS districts;
+DROP TABLE IF EXISTS photos;
+DROP TABLE IF EXISTS users;
 DROP SEQUENCE IF EXISTS seq_user_id;
 
 CREATE SEQUENCE seq_user_id
@@ -38,7 +37,6 @@ CREATE TABLE districts(
 	district_id serial primary key,
 	district_name varchar(500)
 );
-
 CREATE TABLE landmarks(
 	landmark_id serial primary key,
 	name varchar(260) not null,
@@ -49,7 +47,18 @@ CREATE TABLE landmarks(
 	constraint fk_district_id foreign key (district_id) references districts(district_id),
     constraint fk_address_id foreign key (address_id) references address(address_id) 
 	
+	
 );
+CREATE TABLE itinerary(
+	itinerary_id serial primary key,
+	user_id bigint not null,
+	starting_point bigint not null,
+	active boolean DEFAULT 'true',
+	constraint fk_user_id foreign key (user_id) references users(user_id),
+	constraint fk_starting_point foreign key(starting_point) references landmarks(landmark_id)
+); 
+
+
 
 CREATE TABLE reviews(
 	review_id serial primary key,
@@ -72,12 +81,7 @@ CREATE TABLE landmarks_photos(
 	constraint fk_landmark_id foreign key(landmark_id) references landmarks(landmark_id),
 	constraint pk_landmarks_photos primary key(photo_id,landmark_id)
 );
-CREATE TABLE itinerary(
-	itinerary_id serial primary key,
-	user_id bigint not null,
-	starting_point varchar(500) not null,
-	constraint fk_user_id foreign key (user_id) references users(user_id)
-); 
+
 
 CREATE TABLE landmarks_itinerary(
 	itinerary_id bigint not null,
