@@ -6,7 +6,7 @@
         name="name"
         id="name"
         placeholder="Name"
-        v-model="newLandmark.name"
+        v-model.trim="newLandmark.name"
         :aria-invalid="!formErrors.name.isValid"
         required
       />
@@ -21,7 +21,7 @@
         name="address-line-one"
         id="address-line-one"
         placeholder="Address Line One"
-        v-model="newLandmark.addressLineOne"
+        v-model.trim="newLandmark.addressLineOne"
         :aria-invalid="!formErrors.addressLineOne.isValid"
         required
       />
@@ -36,7 +36,7 @@
         name="address-line-two"
         id="address-line-two"
         placeholder="Address Line Two"
-        v-model="newLandmark.addressLineTwo"
+        v-model.trim="newLandmark.addressLineTwo"
       />
     </label>
     <div class="grid">
@@ -48,7 +48,7 @@
           placeholder="New Orleans"
           :aria-invalid="!formErrors.city.isValid"
           disabled
-          v-model="newLandmark.city"
+          v-model.trim="newLandmark.city"
         />
         <small v-show="!formErrors.city.isValid" class="form-error">{{
           formErrors.city.message
@@ -63,7 +63,7 @@
           placeholder="70119"
           :aria-invalid="!formErrors.zipCode.isValid"
           required
-          v-model="newLandmark.zipCode"
+          v-model.trim="newLandmark.zipCode"
         />
         <small v-show="!formErrors.zipCode.isValid" class="form-error">{{
           formErrors.zipCode.message
@@ -74,7 +74,7 @@
         <select
           name="district"
           id="district"
-          v-model="newLandmark.district_id"
+          v-model.trim="newLandmark.district_id"
           :aria-invalid="!formErrors.district_id.isValid"
         >
           <option value="" selected>Select a district...</option>
@@ -96,7 +96,7 @@
         type="url"
         name="imagePath"
         id="imagePath"
-        v-model="newLandmark.photoPath"
+        v-model.trim="newLandmark.photoPath"
         :aria-invalid="!formErrors.photoPath.isValid"
       />
       <small v-show="!formErrors.photoPath.isValid" class="form-error">{{
@@ -109,7 +109,7 @@
       id="content"
       cols="30"
       rows="10"
-      v-model="newLandmark.content"
+      v-model.trim="newLandmark.content"
       :aria-invalid="!formErrors.content.isValid"
     ></textarea>
     <small v-show="!formErrors.photoPath.isValid" class="form-error">{{
@@ -198,10 +198,17 @@ export default {
 
 <style>
 form button {
-  max-width: 128px;
+  max-width: 200px;
+  float: right;
 }
 .form-error {
   color: var(--form-element-invalid-border-color);
   padding-left: 0.5rem;
+}
+
+@media screen and (max-width: 620px) {
+  form button {
+    max-width: initial;
+  }
 }
 </style>

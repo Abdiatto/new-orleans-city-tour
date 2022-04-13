@@ -90,20 +90,26 @@ CREATE TABLE landmarks_itinerary(
 INSERT INTO users (username,password_hash,role) VALUES ('user','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
 INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
 
+INSERT INTO address (address_line_1, city, state, zipcode) VALUES 
+('St Charles Avenue', 'New Orleans', 'LA', 70130),
+('615 Pere Antonie Aly', 'New Orleans', 'LA', 70116),
+('7 Bamboo Rd', 'New Orleans', 'LA', 70124);
 INSERT INTO districts (district_name) VALUES 
-('French Quarter'),
-('Uptown'),
-('Treme'),
-('Arts/Warehouse'),
-('Marigny/Bywater'),
-('Downtown'),
-('Mid-City'),
-('Algiers'),
-('Esplanade Ridge'),
-('Lakeview'),
-('Gentilly'),
-('Metairie/Kenner'),
-('Westbank');	
+('central city'),
+('two'),
+('three');	
 
+INSERT INTO landmarks(name, address_id, content, status, district_id) VALUES
+('Garden District', 1, 'An area of the city that features numerous historic homes.', 'approved', 1),
+('St. Louis Cathedral', 2, 'The major landmark of the French Quarter is the oldest continuously active cathedral in the U.S.', 'approved', 2),
+('Longue Vue House and Gardens', 3, 'Longue Vue House and Gardens is a multifaceted historic estate featuring a world-class house museum and eight acres of stunning gardens that include an interactive Discovery Garden for children of all ages.', 'approved', 3);
+INSERT INTO photos(user_id, photo_path, featured) 
+VALUES (2, 'garden_district.jpg', true),
+       (2, 'st_louis_catherdal.jpg', true),
+       (2, 'longue_vue_house_gardens.jpg', true);
+INSERT INTO landmarks_photos(landmark_id, photo_id) 
+VALUES (1,1),
+       (2,2),
+       (3,3);
    
 COMMIT TRANSACTION;

@@ -30,8 +30,9 @@ export default {
 <style scoped>
 img {
   float: left;
-  width: 475px;
-  height: 320px;
+  width: 100%;
+  /* width: 475px;
+  height: 320px; */
   object-fit: cover;
 }
 p {

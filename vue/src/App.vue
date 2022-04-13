@@ -30,6 +30,11 @@ export default {
   width: 0;
   height: 0;
 }
+:root {
+  --font-family: "Montserrat", sans-serif;
+  --header-font-family: "Merriweather", serif;
+}
+
 [data-theme="light"],
 :root:not([data-theme="dark"]) {
   --primary: #49416d;
@@ -46,5 +51,15 @@ export default {
   --form-element-focus-color: var(--primary-focus);
   --switch-color: var(--primary-inverse);
   --switch-checked-background-color: var(--primary);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--header-font-family);
+  --typography-spacing-vertical: 0.2rem;
 }
 </style>
