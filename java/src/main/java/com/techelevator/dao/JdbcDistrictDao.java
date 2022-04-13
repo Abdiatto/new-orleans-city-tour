@@ -2,6 +2,7 @@ package com.techelevator.dao;
 
 import com.techelevator.model.Address;
 import com.techelevator.model.District;
+import com.techelevator.model.DistrictDTO;
 import com.techelevator.model.LandMark;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -13,6 +14,8 @@ import java.util.List;
 public class JdbcDistrictDao implements DistrictDao {
 
     private JdbcTemplate jdbcTemplate;
+
+    private DistrictDao districtDao;
 
     public JdbcDistrictDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -28,6 +31,19 @@ public class JdbcDistrictDao implements DistrictDao {
         }
         return districts;
     }
+
+    @Override
+    public District add(DistrictDTO district) {
+        String sql = " INSERT INTO districts(district_id, district_name) VALUES(DEFAULT, ?) RETURNING district_id";
+        Integer id = jdbcTemplate.queryForObject(sql, Integer.class, district.getName());
+        return null;
+    }
+
+    @Override
+    public District get(int district_id) {
+        return null;
+    }
+
 
     private District mapRowToDistrict(SqlRowSet row) {
         District district = new District();
