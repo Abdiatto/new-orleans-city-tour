@@ -52,10 +52,9 @@ CREATE TABLE landmarks(
 CREATE TABLE itinerary(
 	itinerary_id serial primary key,
 	user_id bigint not null,
-	starting_point bigint not null,
+	starting_point varchar(500) not null,
 	active boolean DEFAULT 'true',
-	constraint fk_user_id foreign key (user_id) references users(user_id),
-	constraint fk_starting_point foreign key(starting_point) references landmarks(landmark_id)
+	constraint fk_user_id foreign key (user_id) references users(user_id)
 ); 
 
 
