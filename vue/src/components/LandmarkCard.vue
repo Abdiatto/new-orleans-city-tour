@@ -5,7 +5,7 @@
     class="landmark-card"
   >
     <h4>{{ activeLandMark.name }}</h4>
-    <p>{{ activeLandMark.content }}</p>
+    <p>{{ activeLandMark.district.name }}</p>
     <dynamic-image
       :imagePath="activeLandMark.photos[0].path"
       :altText="`Picture of ${activeLandMark.name}`"
@@ -27,7 +27,23 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+img {
+  float: left;
+  width: 475px;
+  height: 320px;
+  object-fit: cover;
+}
+p {
+  color: var(--complement);
+}
+article {
+  --typography-spacing-vertical: -0.2rem;
+}
+h4 {
+  --typography-spacing-vertical: -0.7rem;
+  text-transform: uppercase;
+}
 .landmark-card:hover {
   cursor: pointer;
 }

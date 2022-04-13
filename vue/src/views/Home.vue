@@ -1,6 +1,11 @@
 <template>
   <div class="home">
-    <h1>Visit the Big Easy</h1>
+    <h1>Welcome to New Orleans</h1>
+    <p>
+      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum esse
+      minima beatae odio consectetur totam. Ut ad neque eos quod doloremque
+      illum animi atque odit facere blanditiis, ipsam ratione delectus.
+    </p>
     <div class="grid">
       <landmark-card
         v-for="l in $store.state.allLandmarks"

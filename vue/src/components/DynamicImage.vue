@@ -18,4 +18,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+img {
+  display: block;
+  margin: 0 auto;
+}
+</style>
