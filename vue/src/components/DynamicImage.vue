@@ -1,11 +1,16 @@
 <template>
   <img v-if="isUrl" :src="imagePath" :alt="altText" />
-  <img v-else :src="require(`../assets/landmark_images/${imagePath}`)" />
+  <img v-else :src="require(`../assets/images/${imagePath.trim()}`)" />
 </template>
 
 <script>
 export default {
   name: "dynamic-image",
+  data() {
+    return {
+      isLoaded: false,
+    };
+  },
   props: ["imagePath", "altText"],
   computed: {
     isUrl() {
@@ -18,4 +23,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+img {
+  display: block;
+  margin: 0 auto;
+}
+</style>

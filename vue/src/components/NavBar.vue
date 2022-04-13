@@ -2,7 +2,9 @@
   <nav>
     <ul>
       <li>
-        <router-link v-bind:to="{ name: 'home' }">Logo Placeholder</router-link>
+        <router-link v-bind:to="{ name: 'home' }"
+          ><dynamic-image imagePath="logo-small.png"
+        /></router-link>
       </li>
       <li><router-link v-bind:to="{ name: 'add' }">Add</router-link></li>
     </ul>

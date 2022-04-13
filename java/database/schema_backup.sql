@@ -1,13 +1,14 @@
 BEGIN TRANSACTION;
-DROP TABLE IF EXISTS reviews;
-DROP TABLE IF EXISTS landmarks_photos;
-DROP TABLE IF EXISTS landmarks_itinerary; 
-DROP TABLE IF EXISTS landmarks;
-DROP TABLE IF EXISTS address;
-DROP TABLE IF EXISTS itinerary;
-DROP TABLE IF EXISTS districts;
-DROP TABLE IF EXISTS photos;
+
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS address;
+DROP TABLE IF EXISTS landmarks;
+DROP TABLE IF EXISTS districts;
+DROP TABLE IF EXISTS reviews;
+DROP TABLE IF EXISTS photos;
+DROP TABLE IF EXISTS landmarks_photos;
+DROP TABLE IF EXISTS itinerary;
+DROP TABLE IF EXISTS landmarks_itinerary; 
 DROP SEQUENCE IF EXISTS seq_user_id;
 
 CREATE SEQUENCE seq_user_id
@@ -37,6 +38,7 @@ CREATE TABLE districts(
 	district_id serial primary key,
 	district_name varchar(500)
 );
+
 CREATE TABLE landmarks(
 	landmark_id serial primary key,
 	name varchar(260) not null,
@@ -47,18 +49,7 @@ CREATE TABLE landmarks(
 	constraint fk_district_id foreign key (district_id) references districts(district_id),
     constraint fk_address_id foreign key (address_id) references address(address_id) 
 	
-	
 );
-CREATE TABLE itinerary(
-	itinerary_id serial primary key,
-	user_id bigint not null,
-	starting_point bigint not null,
-	active boolean DEFAULT 'true',
-	constraint fk_user_id foreign key (user_id) references users(user_id),
-	constraint fk_starting_point foreign key(starting_point) references landmarks(landmark_id)
-); 
-
-
 
 CREATE TABLE reviews(
 	review_id serial primary key,
@@ -81,7 +72,12 @@ CREATE TABLE landmarks_photos(
 	constraint fk_landmark_id foreign key(landmark_id) references landmarks(landmark_id),
 	constraint pk_landmarks_photos primary key(photo_id,landmark_id)
 );
-
+CREATE TABLE itinerary(
+	itinerary_id serial primary key,
+	user_id bigint not null,
+	starting_point varchar(500) not null,
+	constraint fk_user_id foreign key (user_id) references users(user_id)
+); 
 
 CREATE TABLE landmarks_itinerary(
 	itinerary_id bigint not null,
@@ -94,20 +90,26 @@ CREATE TABLE landmarks_itinerary(
 INSERT INTO users (username,password_hash,role) VALUES ('user','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
 INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
 
+INSERT INTO address (address_line_1, city, state, zipcode) VALUES 
+('St Charles Avenue', 'New Orleans', 'LA', 70130),
+('615 Pere Antonie Aly', 'New Orleans', 'LA', 70116),
+('7 Bamboo Rd', 'New Orleans', 'LA', 70124);
 INSERT INTO districts (district_name) VALUES 
-('French Quarter'),
-('Uptown'),
-('Treme'),
-('Arts/Warehouse'),
-('Marigny/Bywater'),
-('Downtown'),
-('Mid-City'),
-('Algiers'),
-('Esplanade Ridge'),
-('Lakeview'),
-('Gentilly'),
-('Metairie/Kenner'),
-('Westbank');	
+('central city'),
+('two'),
+('three');	
 
+INSERT INTO landmarks(name, address_id, content, status, district_id) VALUES
+('Garden District', 1, 'An area of the city that features numerous historic homes.', 'approved', 1),
+('St. Louis Cathedral', 2, 'The major landmark of the French Quarter is the oldest continuously active cathedral in the U.S.', 'approved', 2),
+('Longue Vue House and Gardens', 3, 'Longue Vue House and Gardens is a multifaceted historic estate featuring a world-class house museum and eight acres of stunning gardens that include an interactive Discovery Garden for children of all ages.', 'approved', 3);
+INSERT INTO photos(user_id, photo_path, featured) 
+VALUES (2, 'garden_district.jpg', true),
+       (2, 'st_louis_catherdal.jpg', true),
+       (2, 'longue_vue_house_gardens.jpg', true);
+INSERT INTO landmarks_photos(landmark_id, photo_id) 
+VALUES (1,1),
+       (2,2),
+       (3,3);
    
 COMMIT TRANSACTION;
