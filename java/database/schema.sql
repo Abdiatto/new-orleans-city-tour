@@ -15,7 +15,11 @@ CREATE SEQUENCE seq_user_id
   NO MAXVALUE
   NO MINVALUE
   CACHE 1;
-
+CREATE SEQUENCE seq_order_column
+  INCREMENT BY 1
+  NO MAXVALUE
+  NO MINVALUE
+  CACHE 1;
 
 CREATE TABLE users (
 	user_id int DEFAULT nextval('seq_user_id'::regclass) NOT NULL,
@@ -52,12 +56,10 @@ CREATE TABLE landmarks(
 CREATE TABLE itinerary(
 	itinerary_id serial primary key,
 	user_id bigint not null,
-	starting_point varchar(500) not null,
 	active boolean DEFAULT 'true',
 	constraint fk_user_id foreign key (user_id) references users(user_id)
+	
 ); 
-
-
 
 CREATE TABLE reviews(
 	review_id serial primary key,
@@ -85,24 +87,26 @@ CREATE TABLE landmarks_photos(
 CREATE TABLE landmarks_itinerary(
 	itinerary_id bigint not null,
 	landmark_id bigint not null,
+	order_column bigint DEFAULT nextval('seq_order_column'::regclass) NOT NULL,
 	constraint fk_landmark_id foreign key(landmark_id) references landmarks(landmark_id),
 	constraint fk_itinerary_id foreign key(itinerary_id) references itinerary(itinerary_id),
 	constraint pk_landmarks_itinerary primary key(itinerary_id,landmark_id)
+	
+
 );
-
-
 
 INSERT INTO users (username,password_hash,role) VALUES ('user','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
 INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
 
-INSERT INTO itinerary(itinerary_id, user_id, starting_point, active) VALUES(DEFAULT, 1, '1 Terminal Dr, Kenner, LA 70062', DEFAULT);
-INSERT INTO itinerary(itinerary_id, user_id, starting_point, active) VALUES(DEFAULT, 2, '221 Camp St, New Orleans, LA 70130', DEFAULT);
+INSERT INTO itinerary(itinerary_id, user_id, active) VALUES(DEFAULT, 1, DEFAULT);
+INSERT INTO itinerary(itinerary_id, user_id, active) VALUES(DEFAULT, 2, DEFAULT);
 
 INSERT INTO address(address_id, address_line_1, city, state, zipcode) VALUES(DEFAULT, '123street','new orleans', 'La', 12345);
 INSERT INTO districts(district_id,district_name) VALUES (DEFAULT, 'districtTest');
+
 INSERT INTO landmarks(landmark_id, name,content,address_id, status, district_id) VALUES(DEFAULT, 'TEST 1', 'TEST INFO', 1, 'approved', 1);
-INSERT INTO landmarks_itinerary(itinerary_id, landmark_id) VALUES (1,1);
-INSERT INTO landmarks_itinerary(itinerary_id, landmark_id) VALUES (2,1);
+INSERT INTO landmarks_itinerary(itinerary_id, landmark_id, order_column) VALUES (1,1,DEFAULT);
+INSERT INTO landmarks_itinerary(itinerary_id, landmark_id, order_column) VALUES (2,1,DEFAULT);
 
 
 INSERT INTO districts (district_name) VALUES 
