@@ -7,6 +7,11 @@
         /></router-link>
       </li>
       <li><router-link v-bind:to="{ name: 'add' }">Add</router-link></li>
+      <li>
+        <router-link v-bind:to="{ name: 'itineraries' }"
+          >Itineraries</router-link
+        >
+      </li>
     </ul>
   </nav>
 </template>

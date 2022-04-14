@@ -62,4 +62,29 @@ h6 {
   font-family: var(--header-font-family);
   --typography-spacing-vertical: 0.2rem;
 }
+
+.form-button button {
+  max-width: 200px;
+}
+.form-button {
+  display: flex;
+  justify-content: flex-end;
+}
+.form-error {
+  color: var(--form-element-invalid-border-color);
+  padding-left: 0.5rem;
+}
+.warning {
+  background-color: var(--warn);
+  border-color: var(--warn);
+}
+
+@media screen and (max-width: 620px) {
+  .form-button button {
+    max-width: initial;
+  }
+  .form-button {
+    display: block;
+  }
+}
 </style>

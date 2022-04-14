@@ -115,7 +115,7 @@
     <small v-show="!formErrors.photoPath.isValid" class="form-error">{{
       formErrors.content.message
     }}</small>
-    <button type="submit">Submit</button>
+    <div class="form-button"><button type="submit">Submit</button></div>
   </form>
 </template>
 
@@ -196,19 +196,4 @@ export default {
 };
 </script>
 
-<style>
-form button {
-  max-width: 200px;
-  float: right;
-}
-.form-error {
-  color: var(--form-element-invalid-border-color);
-  padding-left: 0.5rem;
-}
-
-@media screen and (max-width: 620px) {
-  form button {
-    max-width: initial;
-  }
-}
-</style>
+<style></style>

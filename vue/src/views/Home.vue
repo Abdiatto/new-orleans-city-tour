@@ -2,9 +2,9 @@
   <div class="home">
     <h1>Welcome to New Orleans</h1>
     <p>
-      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum esse
-      minima beatae odio consectetur totam. Ut ad neque eos quod doloremque
-      illum animi atque odit facere blanditiis, ipsam ratione delectus.
+      Known as The Big Easy, New Orleans is world-renowned for its distinctive
+      music, Creole cuisine, unique dialects, and its annual celebrations and
+      festivals, most notably its historical landmarks.
     </p>
     <div class="grid">
       <landmark-card

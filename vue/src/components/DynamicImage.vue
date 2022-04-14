@@ -1,6 +1,8 @@
 <template>
-  <img v-if="isUrl" :src="imagePath" :alt="altText" />
-  <img v-else :src="require(`../assets/images/${imagePath.trim()}`)" />
+  <div class="image-wrapper">
+    <img v-if="isUrl" :src="imagePath" :alt="altText" />
+    <img v-else :src="require(`../assets/images/${imagePath.trim()}`)" />
+  </div>
 </template>
 
 <script>
@@ -25,7 +27,8 @@ export default {
 
 <style scoped>
 img {
-  display: block;
-  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 </style>

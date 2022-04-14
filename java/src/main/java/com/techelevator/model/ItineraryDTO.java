@@ -1,12 +1,13 @@
 package com.techelevator.model;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Positive;
 
 public class ItineraryDTO {
     @NotEmpty
     private String name;
-    @NotEmpty
-    private String startingPoint;
+    @Positive
+    private Boolean active;
 
     public String getName() {
         return name;
@@ -16,11 +17,11 @@ public class ItineraryDTO {
         this.name = name;
     }
 
-    public String getStartingPoint() {
-        return startingPoint;
+    public Boolean getActive() {
+        return active;
     }
 
-    public void setStartingPoint(String startingPoint) {
-        this.startingPoint = startingPoint;
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }
