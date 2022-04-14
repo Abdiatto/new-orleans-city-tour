@@ -1,14 +1,13 @@
 BEGIN TRANSACTION;
-
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS address;
-DROP TABLE IF EXISTS landmarks;
-DROP TABLE IF EXISTS districts;
 DROP TABLE IF EXISTS reviews;
-DROP TABLE IF EXISTS photos;
 DROP TABLE IF EXISTS landmarks_photos;
-DROP TABLE IF EXISTS itinerary;
 DROP TABLE IF EXISTS landmarks_itinerary; 
+DROP TABLE IF EXISTS landmarks;
+DROP TABLE IF EXISTS address;
+DROP TABLE IF EXISTS itinerary;
+DROP TABLE IF EXISTS districts;
+DROP TABLE IF EXISTS photos;
+DROP TABLE IF EXISTS users;
 DROP SEQUENCE IF EXISTS seq_user_id;
 
 CREATE SEQUENCE seq_user_id
@@ -16,7 +15,11 @@ CREATE SEQUENCE seq_user_id
   NO MAXVALUE
   NO MINVALUE
   CACHE 1;
-
+CREATE SEQUENCE seq_order_column
+  INCREMENT BY 1
+  NO MAXVALUE
+  NO MINVALUE
+  CACHE 1;
 
 CREATE TABLE users (
 	user_id int DEFAULT nextval('seq_user_id'::regclass) NOT NULL,
@@ -38,7 +41,6 @@ CREATE TABLE districts(
 	district_id serial primary key,
 	district_name varchar(500)
 );
-
 CREATE TABLE landmarks(
 	landmark_id serial primary key,
 	name varchar(260) not null,
@@ -49,7 +51,15 @@ CREATE TABLE landmarks(
 	constraint fk_district_id foreign key (district_id) references districts(district_id),
     constraint fk_address_id foreign key (address_id) references address(address_id) 
 	
+	
 );
+CREATE TABLE itinerary(
+	itinerary_id serial primary key,
+	user_id bigint not null,
+	active boolean DEFAULT 'true',
+	constraint fk_user_id foreign key (user_id) references users(user_id)
+	
+); 
 
 CREATE TABLE reviews(
 	review_id serial primary key,
@@ -72,23 +82,32 @@ CREATE TABLE landmarks_photos(
 	constraint fk_landmark_id foreign key(landmark_id) references landmarks(landmark_id),
 	constraint pk_landmarks_photos primary key(photo_id,landmark_id)
 );
-CREATE TABLE itinerary(
-	itinerary_id serial primary key,
-	user_id bigint not null,
-	starting_point varchar(500) not null,
-	constraint fk_user_id foreign key (user_id) references users(user_id)
-); 
+
 
 CREATE TABLE landmarks_itinerary(
 	itinerary_id bigint not null,
 	landmark_id bigint not null,
+	order_column bigint DEFAULT nextval('seq_order_column'::regclass) NOT NULL,
 	constraint fk_landmark_id foreign key(landmark_id) references landmarks(landmark_id),
 	constraint fk_itinerary_id foreign key(itinerary_id) references itinerary(itinerary_id),
 	constraint pk_landmarks_itinerary primary key(itinerary_id,landmark_id)
+	
+
 );
 
 INSERT INTO users (username,password_hash,role) VALUES ('user','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
 INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
+
+INSERT INTO itinerary(itinerary_id, user_id, active) VALUES(DEFAULT, 1, DEFAULT);
+INSERT INTO itinerary(itinerary_id, user_id, active) VALUES(DEFAULT, 2, DEFAULT);
+
+INSERT INTO address(address_id, address_line_1, city, state, zipcode) VALUES(DEFAULT, '123street','new orleans', 'La', 12345);
+INSERT INTO districts(district_id,district_name) VALUES (DEFAULT, 'districtTest');
+
+INSERT INTO landmarks(landmark_id, name,content,address_id, status, district_id) VALUES(DEFAULT, 'TEST 1', 'TEST INFO', 1, 'approved', 1);
+INSERT INTO landmarks_itinerary(itinerary_id, landmark_id, order_column) VALUES (1,1,DEFAULT);
+INSERT INTO landmarks_itinerary(itinerary_id, landmark_id, order_column) VALUES (2,1,DEFAULT);
+
 
 INSERT INTO districts (district_name) VALUES 
 ('French Quarter'),
