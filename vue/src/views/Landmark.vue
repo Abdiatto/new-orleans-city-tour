@@ -9,6 +9,7 @@
       <p>{{ activeLandmark.district.name }}</p>
       <address-line :address="activeLandmark.address" />
     </div>
+    <add-to-itinerary :landmarkId="activeLandmark.landMarkId" />
     <h6>About</h6>
     <p class="content">
       {{ activeLandmark.content }}
@@ -18,8 +19,9 @@
 
 <script>
 import AddressLine from "@/components/AddressLine.vue";
+import AddToItinerary from "@/components/AddToItinerary.vue";
 export default {
-  components: { AddressLine },
+  components: { AddressLine, AddToItinerary },
   created() {
     this.$store.commit("SET_ACTIVE_LANDMARK", this.$route.params.id);
   },
@@ -47,5 +49,12 @@ article p:first-child {
 }
 h6 {
   margin-top: 0.6rem;
+}
+.itinerary-add {
+  max-width: 240px;
+}
+.itinerary-add summary {
+  padding: 0.2rem 0.4rem;
+  margin-top: 0.4rem;
 }
 </style>

@@ -8,6 +8,7 @@ import store from "../store/index";
 import Add from "@/views/Add.vue";
 import Landmark from "@/views/Landmark.vue";
 import NotFound from "@/views/NotFound.vue";
+import Itineraries from "@/views/Itineraries.vue";
 
 Vue.use(Router);
 
@@ -68,6 +69,14 @@ const router = new Router({
       path: "/landmarks/:id",
       name: "landmarks",
       component: Landmark,
+      meta: {
+        requiresAuth: false,
+      },
+    },
+    {
+      path: "/itineraries",
+      name: "itineraries",
+      component: Itineraries,
       meta: {
         requiresAuth: false,
       },

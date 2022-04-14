@@ -28,18 +28,16 @@ export default {
 </script>
 
 <style scoped>
-img {
-  float: left;
-  width: 100%;
-  /* width: 475px;
-  height: 320px; */
-  object-fit: cover;
-}
 p {
   color: var(--complement);
 }
 article {
   --typography-spacing-vertical: -0.2rem;
+  display: flex;
+  flex-direction: column;
+}
+article .image-wrapper {
+  flex-grow: 1;
 }
 h4 {
   --typography-spacing-vertical: -0.7rem;
