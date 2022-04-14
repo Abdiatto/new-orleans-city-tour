@@ -90,8 +90,12 @@ CREATE TABLE landmarks_itinerary(
 	constraint pk_landmarks_itinerary primary key(itinerary_id,landmark_id)
 );
 
+
+
 INSERT INTO users (username,password_hash,role) VALUES ('user','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
 INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
+INSERT INTO itinerary(itinerary_id, user_id, starting_point, active) VALUES(DEFAULT, 1, '1 Terminal Dr, Kenner, LA 70062', DEFAULT);
+INSERT INTO itinerary(itinerary_id, user_id, starting_point, active) VALUES(DEFAULT, 2, '221 Camp St, New Orleans, LA 70130', DEFAULT);
 
 INSERT INTO districts (district_name) VALUES 
 ('French Quarter'),
