@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <nav-bar />
-    <div class="clear"></div>
     <main class="container">
       <router-view />
     </main>
+    <v-dialog />
   </div>
 </template>
 
@@ -17,19 +17,12 @@ export default {
   created() {
     this.$store.dispatch("getLandmarks");
     this.$store.dispatch("getDistricts");
+    this.$store.dispatch("getItineraries");
   },
 };
 </script>
 
 <style>
-.clear {
-  clear: both;
-  display: block;
-  overflow: hidden;
-  visibility: hidden;
-  width: 0;
-  height: 0;
-}
 :root {
   --font-family: "Montserrat", sans-serif;
   --header-font-family: "Merriweather", serif;
@@ -78,8 +71,13 @@ h6 {
   background-color: var(--warn);
   border-color: var(--warn);
 }
+@media screen and (min-width: 576px) and (max-width: 768px) {
+  .container {
+    max-width: 560px;
+  }
+}
 
-@media screen and (max-width: 620px) {
+@media (max-width: 620px) {
   .form-button button {
     max-width: initial;
   }

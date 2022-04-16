@@ -1,6 +1,7 @@
 package com.techelevator.controller;
 
 import com.techelevator.dao.ItineraryDao;
+import com.techelevator.model.ItinerariesDTO;
 import com.techelevator.model.Itinerary;
 import com.techelevator.model.ItineraryAddDTO;
 import com.techelevator.model.ItineraryDTO;
@@ -16,28 +17,39 @@ public class ItineraryController {
         this.itineraryDao = itineraryDao;
     }
 
-    @ResponseStatus(HttpStatus.OK)
-    @RequestMapping (path= "/itineraries/{itineraryID}", method = RequestMethod.PUT)
-    public void deleteItinerary (@PathVariable Integer itineraryID) {
-        itineraryDao.deleteItinerary(itineraryID);
-    }
-
-    @ResponseStatus(HttpStatus.OK)
-    @RequestMapping (path = "/itineraries/{itineraryID}/{landmarkID}", method = RequestMethod.DELETE)
-    public void deleteItineraryLandmark (@PathVariable Integer itineraryID, @PathVariable Integer landmarkID) {
-        itineraryDao.deleteItineraryLandmark(itineraryID, landmarkID);
-    }
+//    @ResponseStatus(HttpStatus.OK)
+//    @RequestMapping (path= "/itineraries/{itineraryID}", method = RequestMethod.PUT)
+//    public void deleteItinerary (@PathVariable Integer itineraryID) {
+//        itineraryDao.deleteItinerary(itineraryID);
+//    }
+//
+//    @ResponseStatus(HttpStatus.OK)
+//    @RequestMapping (path = "/itineraries/{itineraryID}/{landmarkID}", method = RequestMethod.DELETE)
+//    public void deleteItineraryLandmark (@PathVariable Integer itineraryID, @PathVariable Integer landmarkID) {
+//        itineraryDao.deleteItineraryLandmark(itineraryID, landmarkID);
+//    }
+//
+//    @ResponseStatus(HttpStatus.CREATED)
+//    @RequestMapping(path="/itineraries", method=RequestMethod.POST)
+//    public Itinerary add(@RequestBody Itinerary itinerary) {
+//        return itineraryDao.add(itinerary);
+//    }
+//
+//    @ResponseStatus(HttpStatus.NO_CONTENT)
+//    @RequestMapping(path="/itineraries/{itineraryID}", method=RequestMethod.PUT)
+//    public void update(@PathVariable Integer itineraryID, @RequestBody ItineraryAddDTO itineraryAddDTO) {
+//        itineraryDao.update(itineraryAddDTO, itineraryID);
+//    }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @RequestMapping(path="/itineraries", method=RequestMethod.POST)
-    public Itinerary add(@RequestBody Itinerary itinerary) {
-        return itineraryDao.add(itinerary);
+    @RequestMapping(path="/itineraries", method=RequestMethod.PUT)
+    public void testUpdate(@RequestBody String dto) {
+        itineraryDao.testUpdate(dto);
     }
 
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @RequestMapping(path="/itineraries/{itineraryID}", method=RequestMethod.PUT)
-    public void update(@PathVariable Integer itineraryID, @RequestBody ItineraryAddDTO itineraryAddDTO) {
-        itineraryDao.update(itineraryAddDTO, itineraryID);
+    @RequestMapping(path="/itineraries", method=RequestMethod.GET)
+    public String testGet(){
+        return itineraryDao.testGet();
     }
 
 

@@ -60,17 +60,4 @@ export default {
 };
 </script>
 
-<style>
-.well {
-  border-radius: var(--border-radius);
-  list-style: none;
-}
-ul.well li {
-  list-style: none;
-  cursor: pointer;
-  border: var(--border-width) solid var(--table-border-color);
-  border-radius: var(--border-radius);
-  background-color: #f5f5f5;
-  padding-left: var(--nav-element-spacing-horizontal);
-}
-</style>
+<style></style>
