@@ -42,6 +42,21 @@ public class JdbcLandMarkDao implements LandMarkDao{
         return null;
     }
 
+    @Override
+    public List<LandMark> findLandmarksByItineraryId(Long itineraryID) {
+        List<LandMark> landmarks = new ArrayList<>();
+        String sql = "SELECT landmarks.landmark_id, landmarks.name, landmarks.status, landmarks.content, landmarks.address_id, address_line_1, " +
+                "address_line_2, city, state, zipcode, districts.district_name, districts.district_id FROM landmarks " +
+                "JOIN address ON address.address_id = landmarks.landmark_id " +
+                "JOIN districts ON landmarks.district_id = districts.district_id " +
+                "WHERE landmark_id IN " +
+                    "(SELECT landmark_id FROM landmarks_itinerary WHERE itinerary_id = ?)";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, itineraryID);
+        while (results.next()) {
+            landmarks.add(mapRowToLandmark(results));
+        }
+        return landmarks;
+    }
 
     @Override
     public LandMark get(int landMarkID) {

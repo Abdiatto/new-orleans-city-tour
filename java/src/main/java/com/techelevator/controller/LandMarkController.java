@@ -37,6 +37,11 @@ public class LandMarkController {
         landMarkDao.Add(landmarkDTO);
     }
 
+    @RequestMapping(path="/itinerary/{id}/landmarks", method=RequestMethod.GET)
+    public List<LandMark> getLandmarksFromItinerary(@PathVariable Long id) {
+        return landMarkDao.findLandmarksByItineraryId(id);
+    }
+
     @RequestMapping(path="/districts", method=RequestMethod.GET)
     public List<District> getDistricts() {
         return districtDao.list();

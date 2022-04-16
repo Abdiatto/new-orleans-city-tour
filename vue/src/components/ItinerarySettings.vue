@@ -34,6 +34,7 @@
       </div>
     </div>
     <div class="form-button">
+      <button @click="emailItinerary">Email Itinerary</button>&nbsp;
       <button @click="deleteItinerary" class="warning">Delete Itinerary</button>
     </div>
   </details>
@@ -52,11 +53,19 @@ export default {
       landmarks: this.$store.getters.getLandmarksItinerary(this.itinerary),
     };
   },
+  computed: {
+    itineraryId() {
+      return this.itinerary.itineraryId;
+    }
+  },
   methods: {
     deleteItinerary() {
       this.$store.commit("REMOVE_ITINERARY", this.itinerary);
       this.$store.dispatch("syncItineraries");
     },
+    emailItinerary() {
+      this.$router.push({name: 'email', params: {id: this.itineraryId}})
+    }
   },
   props: ["itinerary"],
   watch: {

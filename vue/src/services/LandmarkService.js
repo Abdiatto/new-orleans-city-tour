@@ -10,4 +10,7 @@ export default {
   getDistricts() {
     return axios.get("/districts");
   },
+  getLandmarksByItineraryId(id) {
+    return axios.get(`/itinerary/${id}/landmarks`);
+  },
 };

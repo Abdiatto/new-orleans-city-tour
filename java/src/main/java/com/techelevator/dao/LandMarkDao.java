@@ -12,4 +12,5 @@ public interface LandMarkDao {
     LandMark Add(LandmarkDTO landMark);
     List<LandMark> list();
     List<District> getDistricts();
+    List<LandMark> findLandmarksByItineraryId(Long itineraryID);
 }
