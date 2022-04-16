@@ -3,6 +3,9 @@ package com.techelevator.dao;
 import com.techelevator.model.ItinerariesDTO;
 import com.techelevator.model.Itinerary;
 import com.techelevator.model.ItineraryAddDTO;
+import org.springframework.http.ResponseEntity;
+
+import java.util.List;
 
 public interface ItineraryDao {
 
@@ -12,4 +15,7 @@ public interface ItineraryDao {
     void update(ItineraryAddDTO itineraryAddDTO, Integer itineraryID);
     void testUpdate(String dto);
     public String testGet();
+    Itinerary findByID(int itineraryID);
+    List<Itinerary> findAll();
+
 }
