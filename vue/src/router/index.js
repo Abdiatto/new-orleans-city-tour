@@ -9,6 +9,7 @@ import Add from "@/views/Add.vue";
 import Landmark from "@/views/Landmark.vue";
 import NotFound from "@/views/NotFound.vue";
 import Itineraries from "@/views/Itineraries.vue";
+import MapTest from "@/views/MapTest.vue";
 
 Vue.use(Router);
 
@@ -77,6 +78,14 @@ const router = new Router({
       path: "/itineraries",
       name: "itineraries",
       component: Itineraries,
+      meta: {
+        requiresAuth: false,
+      },
+    },
+    {
+      path: "/maptest",
+      name: "maptest",
+      component: MapTest,
       meta: {
         requiresAuth: false,
       },
