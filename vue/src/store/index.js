@@ -25,7 +25,7 @@ export default new Vuex.Store({
     activeLandmarkId: 0,
     allLandmarks: [],
     allDistricts: [],
-    allItineraries: itineraries || [],
+    allItineraries: [],
     landmarksByItinerary: [],
   },
   getters: {
