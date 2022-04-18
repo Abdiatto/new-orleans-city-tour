@@ -6,11 +6,9 @@
 
 <script>
 import mapboxgl from "mapbox-gl";
-import mapService from "@/services/MapService.js";
-
 export default {
   name: "single-point-map",
-  props: ["address"],
+  props: ["itinerary"],
   data() {
     return {
       loading: false,
@@ -22,11 +20,6 @@ export default {
   },
   mounted() {
     this.createMap();
-    mapService
-      .getMapPosition("701 Chartres St.,New Orleans, LA 70116")
-      .then((r) => {
-        console.log(r);
-      });
   },
 
   methods: {
