@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
 import landmarkService from "@/services/LandmarkService.js";
+import itinerariesService from "@/services/ItinerariesService";
 
 Vue.use(Vuex);
 
@@ -12,8 +13,6 @@ Vue.use(Vuex);
  */
 const currentToken = localStorage.getItem("token");
 const currentUser = JSON.parse(localStorage.getItem("user"));
-
-const itineraries = JSON.parse(localStorage.getItem("itineraries"));
 
 if (currentToken != null) {
   axios.defaults.headers.common["Authorization"] = `Bearer ${currentToken}`;
@@ -124,10 +123,14 @@ export default new Vuex.Store({
     },
     syncItineraries({ state }) {
       localStorage.setItem("itineraries", JSON.stringify(state.allItineraries));
+      itinerariesService.update(state.allItineraries);
     },
     getItineraries({ commit }) {
-      const i = localStorage.getItem("itineraries") || [];
-      commit("UPDATE_ITINERARIES", JSON.parse(i));
+      // const i = localStorage.getItem("itineraries") || [];
+      // commit("UPDATE_ITINERARIES", JSON.parse(i));
+      itinerariesService.get().then((response) => {
+        commit("UPDATE_ITINERARIES", response.data);
+      });
     },
     getLandmarksByItinerary({ commit }, itineraryId) {
       landmarkService.getLandmarksByItineraryId(itineraryId)

@@ -3,8 +3,8 @@
     <summary role="button" class="secondary">
       {{ itinerary.name }}
     </summary>
-    <label for="startPoint"> </label>
-    <div class="grid">
+
+    <div class="grid grid-well">
       <div>
         <h6>Places</h6>
         <div>
@@ -60,8 +60,26 @@ export default {
   },
   methods: {
     deleteItinerary() {
-      this.$store.commit("REMOVE_ITINERARY", this.itinerary);
-      this.$store.dispatch("syncItineraries");
+      this.$modal.show("dialog", {
+        title: "Delete " + this.itinerary.name,
+        text: "Are you sure you want to delete this itinerary?",
+        buttons: [
+          {
+            title: "Cancel",
+            handler: () => {
+              this.$modal.hide("dialog");
+            },
+          },
+          {
+            title: "Delete",
+            handler: () => {
+              this.$store.commit("REMOVE_ITINERARY", this.itinerary);
+              this.$store.dispatch("syncItineraries");
+              this.$modal.hide("dialog");
+            },
+          },
+        ],
+      });
     },
     emailItinerary() {
       this.$router.push({name: 'email', params: {id: this.itineraryId}})
@@ -82,12 +100,34 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .well {
-  height: 350px;
+  height: 200px;
   border: var(--border-width) solid var(--table-border-color);
   overflow-y: auto;
   padding: var(--nav-element-spacing-horizontal);
   padding-top: calc(2 * var(--nav-element-spacing-horizontal));
+  border-radius: var(--border-radius);
+  list-style: none;
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
+}
+ul.well li {
+  list-style: none;
+  cursor: pointer;
+  border: var(--border-width) solid var(--table-border-color);
+  border-radius: var(--border-radius);
+  background-color: #f5f5f5;
+  padding-bottom: 0.3rem;
+  padding-top: 0.3rem;
+  padding-left: var(--nav-element-spacing-horizontal);
+}
+@media (min-width: 768px) {
+  .grid-well.grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .well {
+    height: 350px;
+  }
 }
 </style>

@@ -1,5 +1,6 @@
 package com.techelevator.dao;
 
+import com.techelevator.model.ItinerariesDTO;
 import com.techelevator.model.Itinerary;
 import com.techelevator.model.ItineraryAddDTO;
 import com.techelevator.model.LandMark;
@@ -52,6 +53,19 @@ public class JdbcItineraryDao implements ItineraryDao {
     }
 
     @Override
+    public void testUpdate(String dto) {
+        String sql = "INSERT into itineraries (user_id, storage) " +
+                "values (1, ?::jsonb ) " +
+                "ON CONFLICT(user_id) DO UPDATE set storage = EXCLUDED.storage ";
+        jdbcTemplate.update(sql, dto);
+    }
+
+    @Override
+    public String testGet() {
+        String sql = "select storage from itineraries where user_id = 1 ";
+        return jdbcTemplate.queryForObject(sql, String.class);
+    }
+
     public Itinerary findByID(int itineraryID) {
         String sql = "SELECT * " +
                 "FROM itinerary " +
