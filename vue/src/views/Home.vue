@@ -6,6 +6,7 @@
       music, Creole cuisine, unique dialects, and its annual celebrations and
       festivals, most notably its historical landmarks.
     </p>
+    <filter-search />
     <div class="grid">
       <landmark-card
         v-for="l in $store.state.allLandmarks"
@@ -18,10 +19,11 @@
 
 <script>
 import LandmarkCard from "@/components/LandmarkCard.vue";
+import FilterSearch from "@/components/FilterSearch.vue";
 
 export default {
   name: "home",
-  components: { LandmarkCard },
+  components: { LandmarkCard, FilterSearch },
 };
 </script>
 

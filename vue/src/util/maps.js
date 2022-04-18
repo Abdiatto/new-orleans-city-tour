@@ -1,7 +1,8 @@
 import mapboxgl from "mapbox-gl";
+import mapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
+import * as turf from "@turf/turf";
 
 mapboxgl.accessToken = process.env.VUE_APP_MAP_ACCESS_TOKEN;
-
 export default {
   //default values for the map, default center is new orleans
   mapSettings: {
@@ -50,5 +51,16 @@ export default {
   //adds a basic waypoint to a map
   addBasicWaypoint(lngLat, map) {
     new mapboxgl.Marker().setLngLat(lngLat).addTo(map);
+  },
+  newGeocoderSearch() {
+    return new mapboxGeocoder({
+      accessToken: mapboxgl.accessToken,
+      types: "country,region,place,postcode,locality,neighborhood,poi",
+    });
+  },
+  getDistance(fromChords, toChords) {
+    const from = turf.point(fromChords);
+    const to = turf.point(toChords);
+    return turf.distance(from, to, { units: "miles" });
   },
 };

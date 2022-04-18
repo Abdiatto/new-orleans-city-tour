@@ -1,5 +1,6 @@
 import geocoding from "@mapbox/mapbox-sdk/services/geocoding";
 import optimization from "@mapbox/mapbox-sdk/services/optimization";
+import util from "@/util/util.js";
 
 const token = {
   accessToken: process.env.VUE_APP_MAP_ACCESS_TOKEN,
@@ -31,6 +32,18 @@ export default {
   async getAddresses(addressArray) {
     return await Promise.all(
       addressArray.map((address) => this.getMapPosition(address))
+    );
+  },
+
+  async getLandmarkChords(landmarks) {
+    return await Promise.all(
+      landmarks.map(async (landmark) => {
+        const address = util.composeAddressString(landmark.address);
+        return {
+          landMarkId: landmark.landMarkId,
+          center: await this.getMapPosition(address),
+        };
+      })
     );
   },
 
