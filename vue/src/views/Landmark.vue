@@ -14,14 +14,16 @@
     <p class="content">
       {{ activeLandmark.content }}
     </p>
+    <landmark-map :address="activeLandmark.address" />
   </article>
 </template>
 
 <script>
 import AddressLine from "@/components/AddressLine.vue";
 import AddToItinerary from "@/components/AddToItinerary.vue";
+import LandmarkMap from "@/components/LandmarkMap.vue";
 export default {
-  components: { AddressLine, AddToItinerary },
+  components: { AddressLine, AddToItinerary, LandmarkMap },
   created() {
     this.$store.commit("SET_ACTIVE_LANDMARK", this.$route.params.id);
   },
