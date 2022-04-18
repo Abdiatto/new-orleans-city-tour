@@ -10,6 +10,8 @@
       <address-line :address="activeLandmark.address" />
     </div>
     <add-to-itinerary :landmarkId="activeLandmark.landMarkId" />
+    <h5>location</h5>
+    <landmark-maps v-for="address in Address" v-bind:key="address.id" />
     <h6>About</h6>
     <p class="content">
       {{ activeLandmark.content }}
