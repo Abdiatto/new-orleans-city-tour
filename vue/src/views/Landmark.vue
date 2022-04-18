@@ -10,6 +10,9 @@
       <address-line :address="activeLandmark.address" />
     </div>
     <add-to-itinerary :landmarkId="activeLandmark.landMarkId" />
+    <h5>location</h5>
+    <landmark-maps v-for="address in Address"
+    v-bind:key="address.id"/>
     <h6>About</h6>
     <p class="content">
       {{ activeLandmark.content }}
@@ -20,8 +23,9 @@
 <script>
 import AddressLine from "@/components/AddressLine.vue";
 import AddToItinerary from "@/components/AddToItinerary.vue";
+import LandmarkMaps from '../components/LandmarkMaps.vue';
 export default {
-  components: { AddressLine, AddToItinerary },
+  components: { AddressLine, AddToItinerary,LandmarkMaps},
   created() {
     this.$store.commit("SET_ACTIVE_LANDMARK", this.$route.params.id);
   },
