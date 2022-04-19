@@ -2,7 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
 import landmarkService from "@/services/LandmarkService.js";
-import itinerariesService from "@/services/ItinerariesService";
+import itinerariesService from "@/services/ItinerariesService.js";
 
 Vue.use(Vuex);
 

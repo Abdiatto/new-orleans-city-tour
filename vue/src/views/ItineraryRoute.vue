@@ -4,6 +4,11 @@
       {{ activeItinerary.name }} Itinerary Optimized Travel Route
     </h2>
     <itinerary-map v-if="data" :geoData="data" />
+    <itinerary-route-details
+      v-if="data"
+      :geoData="data"
+      :itinerary="activeItinerary"
+    />
   </article>
 </template>
 
@@ -11,9 +16,10 @@
 import ItineraryMap from "../components/ItineraryMap.vue";
 import mapService from "@/services/MapService.js";
 import util from "@/util/util.js";
+import ItineraryRouteDetails from "@/components/ItineraryRouteDetails.vue";
 
 export default {
-  components: { ItineraryMap },
+  components: { ItineraryMap, ItineraryRouteDetails },
   data() {
     return {
       data: false,
@@ -46,6 +52,7 @@ export default {
   },
   watch: {
     activeItineraryLandmarks(value) {
+      console.log("watcher");
       if (value && value.length > 0) {
         this.loadItinerary();
       }

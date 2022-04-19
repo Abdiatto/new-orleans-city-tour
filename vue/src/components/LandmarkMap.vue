@@ -1,6 +1,8 @@
 <template>
-  <div v-if="!error" id="map"></div>
-  <h4 v-else>There was an error with loading the map</h4>
+  <div>
+    <div v-if="!error" id="map"></div>
+    <h4 v-else>There was an error with loading the map</h4>
+  </div>
 </template>
 
 <script>

@@ -24,7 +24,9 @@ export default {
         })
         .send();
       const chords = (await response.body.features[0].center) || [];
-      if (chords.length === 2) cachedAddresses[address] = chords;
+      if (chords.length === 2) {
+        cachedAddresses[address] = chords;
+      }
       return chords.length === 2 ? chords : false;
     }
   },
