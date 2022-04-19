@@ -34,8 +34,8 @@
       </div>
     </div>
     <div class="form-button">
-      <button @click="routeItinerary">Optimized Route</button>
-      <button @click="emailItinerary" class="spaced-btn">
+      <button class="secondary" @click="routeItinerary">Optimized Route</button>
+      <button @click="emailItinerary" class="spaced-btn secondary">
         Email Itinerary
       </button>
       <button @click="deleteItinerary" class="warning spaced-btn">

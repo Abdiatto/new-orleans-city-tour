@@ -58,7 +58,7 @@ h6 {
 
 .form-button button,
 .form-button input[type="submit"] {
-  max-width: 200px;
+  max-width: 220px;
 }
 .form-button {
   display: flex;
