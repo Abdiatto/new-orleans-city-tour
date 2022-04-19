@@ -1,6 +1,8 @@
 <template>
-  <div v-if="!error" id="map"></div>
-  <h4 v-else>There was an error with loading the map</h4>
+  <div>
+    <div v-if="!error" id="map"></div>
+    <h4 v-else>There was an error with loading the map</h4>
+  </div>
 </template>
 
 <script>
@@ -15,6 +17,7 @@ export default {
       map: {},
       loaded: false,
       nothing: turf.featureCollection([]),
+      data: false,
     };
   },
   mounted() {
@@ -28,6 +31,7 @@ export default {
       });
     } catch {
       this.error = "true";
+      console.log("map error");
     }
   },
   computed: {
@@ -43,7 +47,6 @@ export default {
       const geometry = this.geoData.trips[0].geometry;
       const routeGeoJSON = turf.featureCollection([turf.feature(geometry)]);
       this.map.getSource("route").setData(routeGeoJSON);
-      //this.map.addSource("route", { type: "geojson", data: routeGeoJSON });
       this.geoData.waypoints.forEach((waypoint) => {
         maps.addBasicWaypoint(waypoint.location, this.map);
       });
