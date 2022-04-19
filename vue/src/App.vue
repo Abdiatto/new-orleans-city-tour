@@ -56,7 +56,8 @@ h6 {
   --typography-spacing-vertical: 0.2rem;
 }
 
-.form-button button {
+.form-button button,
+.form-button input[type="submit"] {
   max-width: 200px;
 }
 .form-button {

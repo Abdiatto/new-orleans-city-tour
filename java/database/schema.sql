@@ -121,7 +121,7 @@ INSERT INTO public.address (address_id, address_line_1, address_line_2, city, st
 INSERT INTO public.address (address_id, address_line_1, address_line_2, city, state, zipcode) VALUES (7, '500 Chartres St', '', 'New Orleans', 'LA', 70130);
 INSERT INTO public.address (address_id, address_line_1, address_line_2, city, state, zipcode) VALUES (8, '400 Esplanade Ave', '', 'New Orleans', 'LA', 70116);
 INSERT INTO public.address (address_id, address_line_1, address_line_2, city, state, zipcode) VALUES (9, '701 Chartres St.', '', 'New Orleans', 'LA', 70116);
-SELECT pg_catalog.setval('public.districts_district_id_seq', 13, true);
+SELECT pg_catalog.setval('public.address_address_id_seq', 9, true);
 INSERT INTO public.districts (district_id, district_name) VALUES (1, 'French Quarter');
 INSERT INTO public.districts (district_id, district_name) VALUES (2, 'Uptown');
 INSERT INTO public.districts (district_id, district_name) VALUES (3, 'Treme');

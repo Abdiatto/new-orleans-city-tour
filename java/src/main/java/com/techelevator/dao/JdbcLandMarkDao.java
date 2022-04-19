@@ -32,7 +32,7 @@ public class JdbcLandMarkDao implements LandMarkDao{
 
     @Override
     public LandMark Add(LandmarkDTO landMark) {
-        String sql = "INSERT INTO address(address_line_1, address_line_2, city, state, zipcode) VALUES(?,?,?,?,?) "
+        String sql = "INSERT INTO public.address(address_line_1, address_line_2, city, state, zipcode) VALUES(?,?,?,?,?) "
                 + "RETURNING address_id ";
         Integer id = jdbcTemplate.queryForObject(sql, Integer.class, landMark.getAddressLineOne(), landMark.getAddressLineTwo(), landMark.getCity(), landMark.getState(),landMark.getZipCode());
         String sql2 = "INSERT INTO landmarks(landmark_id, name, content, address_id, status, district_id) " +

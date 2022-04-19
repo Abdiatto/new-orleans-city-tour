@@ -9,7 +9,7 @@
     <filter-search />
     <div class="grid">
       <landmark-card
-        v-for="l in $store.state.allLandmarks"
+        v-for="l in $store.state.filteredLandmarks"
         v-bind:key="l.landMarkId"
         v-bind:landmarkId="l.landMarkId"
       />

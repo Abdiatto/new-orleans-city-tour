@@ -20,6 +20,7 @@ if (currentToken != null) {
 
 export default new Vuex.Store({
   state: {
+    first: false,
     token: currentToken || "",
     user: currentUser || {},
     activeLandmarkId: 0,
@@ -28,6 +29,7 @@ export default new Vuex.Store({
     allDistricts: [],
     allItineraries: [],
     landmarksByItinerary: [],
+    filteredLandmarks: [],
   },
   getters: {
     getAvailableLandmarks: (state) => (itinerary) => {
@@ -43,18 +45,18 @@ export default new Vuex.Store({
       });
     },
     getLandmarksByItinerary: (state) => (id) => {
-      const itinerary = state.allItineraries.find(i => i.itineraryId == id);
+      const itinerary = state.allItineraries.find((i) => i.itineraryId == id);
       let landmarks = [];
       if (itinerary !== undefined) {
         itinerary.landmarks.forEach((item) => {
-          const landmark = state.allLandmarks.find(l => l.landMarkId == item);
+          const landmark = state.allLandmarks.find((l) => l.landMarkId == item);
           landmarks.push(landmark);
-        })
+        });
       }
       return landmarks;
     },
     getItinerary: (state) => (id) => {
-      const itinerary = state.allItineraries.find(i => i.itineraryId == id);
+      const itinerary = state.allItineraries.find((i) => i.itineraryId == id);
       return itinerary;
     },
     getActiveItinerary: (state) => () => {
@@ -118,11 +120,21 @@ export default new Vuex.Store({
       );
       state.allItineraries.splice(index, 1);
     },
+    SET_FILTERED_LANDMARKS(state, landmarks) {
+      state.filteredLandmarks = landmarks;
+    },
+    SET_FIRST(state, value) {
+      state.first = value;
+    },
   },
   actions: {
-    getLandmarks({ commit }) {
+    getLandmarks({ state, commit }) {
       landmarkService.getLandmarks().then((response) => {
         commit("SET_LANDMARKS", response.data);
+        if (!state.first) {
+          commit("SET_FIRST", true);
+          commit("SET_FILTERED_LANDMARKS", response.data);
+        }
       });
     },
     getDistricts({ commit }) {
@@ -140,9 +152,10 @@ export default new Vuex.Store({
       });
     },
     getLandmarksByItinerary({ commit }, itineraryId) {
-      landmarkService.getLandmarksByItineraryId(itineraryId)
+      landmarkService
+        .getLandmarksByItineraryId(itineraryId)
         .then((response) => {
-          commit("SET_LANDMARKS_BY_ITINERARY", response.data)
+          commit("SET_LANDMARKS_BY_ITINERARY", response.data);
         });
     },
   },

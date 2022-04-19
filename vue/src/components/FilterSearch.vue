@@ -1,16 +1,22 @@
 <template>
-  <div>
-    <div id="geocoder"></div>
-    <label for="distance">
-      Mile Radius <input name="distance" v-model="distance" type="number" />
-    </label>
-    <button @click="filter">Filter</button>
-  </div>
+  <details>
+    <summary role="button" class="secondary">
+      Filter
+    </summary>
+    <div class="filter-grid">
+      <label for="geocoder" id="geocoder-label">
+        Starting Point
+        <div id="geocoder"></div>
+      </label>
+      <label for="distance">
+        Mile Radius <input name="distance" v-model="distance" type="number" />
+      </label>
+    </div>
+  </details>
 </template>
 
 <script>
 import maps from "@/util/maps.js";
-//import util from "@/util/util.js";
 import mapService from "@/services/MapService.js";
 
 export default {
@@ -22,6 +28,10 @@ export default {
     };
   },
   mounted() {
+    this.$store.commit(
+      "SET_FILTERED_LANDMARKS",
+      this.$store.state.allLandmarks
+    );
     const geo = maps.newGeocoderSearch();
     geo.addTo("#geocoder");
     geo.on("result", (e) => {
@@ -30,10 +40,6 @@ export default {
     geo.on("clear", () => {
       this.startingPoint = [];
     });
-  },
-  computed: {
-    // filtered() {
-    // }
   },
   methods: {
     filter() {
@@ -45,26 +51,32 @@ export default {
               (l) => landmark.landMarkId == l.landMarkId
             ).center;
             const distance = maps.getDistance(this.startingPoint, center);
-            return distance <= this.distance;
+            return this.distance > 0 ? distance <= this.distance : true;
           });
-          console.log(filtered);
+          this.$store.commit("SET_FILTERED_LANDMARKS", filtered);
         });
-
-      // const filtered = this.$store.state.allLandmarks.filter((landmark) => {
-      //   const address = util.composeAddressString(landmark.address);
-      //   mapService.getMapPosition(address).then()
-      //   //get distance from starting point
-      //   const distance = maps.getDistance(this.startingPoint, chords);
-
-      //   return distance <= this.distance;
-      // });
-      // console.log(filtered);
+    },
+  },
+  watch: {
+    startingPoint() {
+      this.filter();
+    },
+    distance() {
+      this.filter();
     },
   },
 };
 </script>
 
 <style>
+.filter-grid {
+  display: flex;
+  gap: 1rem;
+}
+.filter-grid #geocoder-label {
+  flex-basis: 80%;
+  flex-grow: 1;
+}
 #geocoder {
   z-index: 1;
   margin: 20px;
@@ -72,11 +84,22 @@ export default {
 .mapboxgl-ctrl-geocoder {
   position: relative;
 }
+.mapboxgl-ctrl-geocoder--button {
+  margin: 0;
+  padding: 1rem;
+  background-color: initial;
+  border: none;
+  color: initial;
+  box-shadow: none;
+}
+.mapboxgl-ctrl button:not(:disabled):hover {
+  background-color: initial;
+}
 .mapboxgl-ctrl-geocoder .mapboxgl-ctrl-geocoder--pin-right > * {
   z-index: 2;
   position: absolute;
-  right: 8px;
-  top: 7px;
+  right: -3px;
+  top: 0px;
   display: none;
 }
 .mapboxgl-ctrl-geocoder.mapboxgl-ctrl-geocoder--collapsed {
@@ -86,6 +109,7 @@ export default {
 }
 .mapboxgl-ctrl-geocoder .suggestions {
   background-color: #fff;
+  border: 1px solid #a2afb9;
   border-radius: 4px;
   left: 0;
   list-style: none;
@@ -127,12 +151,25 @@ export default {
 #geocoder input {
   margin: 0;
   font-size: 1rem;
+  padding-left: 1.5rem;
+
+  margin-top: calc(var(--spacing) * 0.25);
 }
 .mapboxgl-ctrl-geocoder {
   min-width: 100%;
 }
 .mapboxgl-ctrl-geocoder--icon {
-  top: 50px;
+  position: absolute;
+  top: 27px;
   padding: 0;
+  left: 6px;
+}
+@media screen and (max-width: 994px) {
+  .mapboxgl-ctrl-geocoder--icon {
+    top: 23px;
+  }
+  .filter-grid {
+    flex-direction: column;
+  }
 }
 </style>

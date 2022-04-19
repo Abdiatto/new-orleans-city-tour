@@ -34,8 +34,13 @@
       </div>
     </div>
     <div class="form-button">
-      <button @click="emailItinerary" class="spaced-btn">Email Itinerary</button>
-      <button @click="deleteItinerary" class="warning spaced-btn">Delete Itinerary</button>
+      <button @click="routeItinerary">Optimized Route</button>
+      <button @click="emailItinerary" class="spaced-btn">
+        Email Itinerary
+      </button>
+      <button @click="deleteItinerary" class="warning spaced-btn">
+        Delete Itinerary
+      </button>
     </div>
   </details>
 </template>
@@ -56,7 +61,7 @@ export default {
   computed: {
     itineraryId() {
       return this.itinerary.itineraryId;
-    }
+    },
   },
   methods: {
     deleteItinerary() {
@@ -82,8 +87,11 @@ export default {
       });
     },
     emailItinerary() {
-      this.$router.push({name: 'email', params: {id: this.itineraryId}})
-    }
+      this.$router.push({ name: "email", params: { id: this.itineraryId } });
+    },
+    routeItinerary() {
+      this.$router.push({ name: "routes", params: { id: this.itineraryId } });
+    },
   },
   props: ["itinerary"],
   watch: {
