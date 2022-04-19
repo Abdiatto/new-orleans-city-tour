@@ -34,8 +34,8 @@
       </div>
     </div>
     <div class="form-button">
-      <button @click="emailItinerary">Email Itinerary</button>&nbsp;
-      <button @click="deleteItinerary" class="warning">Delete Itinerary</button>
+      <button @click="emailItinerary" class="spaced-btn">Email Itinerary</button>
+      <button @click="deleteItinerary" class="warning spaced-btn">Delete Itinerary</button>
     </div>
   </details>
 </template>
@@ -101,6 +101,9 @@ export default {
 </script>
 
 <style scoped>
+.spaced-btn {
+  margin-left: 20px;
+}
 .well {
   height: 200px;
   border: var(--border-width) solid var(--table-border-color);

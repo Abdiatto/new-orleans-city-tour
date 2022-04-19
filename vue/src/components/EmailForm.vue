@@ -53,10 +53,11 @@ export default {
       try {
         emailjs.sendForm('service_ezng6bg', 'template_t679rk3', e.target, 'g0T_fU4oM6hH-En03')
 
-        alert('Email sent.');
-        this.name = '';
-        this.email = '';
+        // alert('Email sent.');
+        // this.name = '';
+        // this.email = '';
         // navigate to another page
+        this.$router.push({name: 'itineraries'});
       } catch (error) {
           console.log({error})
           this.name = 'error'
@@ -65,45 +66,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-* {box-sizing: border-box;}
-
-label {
-  float: left;
-}
-input[type=text], [type=email], textarea {
-  width: 100%;
-  padding: 12px;
-  background-color: #fff;
-  border: 1px solid #fff;
-  border-radius: 4px;
-  box-sizing: border-box;
-  margin-top: 6px;
-  margin-bottom: 16px;
-  resize: vertical;
-}
-
-input[type=submit] {
-  background-color: #4CAF50;
-  color: white;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-input[type=submit]:hover {
-  background-color: #b8c7b9;
-}
-
-.container {
-  display: block;
-  margin:auto;
-  text-align: center;
-  border-radius: 5px;
-  background-color: #f2f2f2;
-  padding: 20px;
-  width: 100%;
-}
-</style>
