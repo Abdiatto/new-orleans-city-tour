@@ -29,13 +29,26 @@ INSERT INTO public.photos (photo_id, user_id, photo_path, featured) VALUES (6, 2
 INSERT INTO public.photos (photo_id, user_id, photo_path, featured) VALUES (7, 2, 'https://bloximages.newyork1.vip.townnews.com/nola.com/content/tncms/assets/v3/editorial/9/43/94339bff-3384-5a7d-bba1-a660fcb46808/5dd75a99a8e4c.image.jpg?crop=1567%2C1175%2C98%2C0&resize=1567%2C1175&order=crop%2Cresize', true);
 INSERT INTO public.photos (photo_id, user_id, photo_path, featured) VALUES (8, 2, 'https://assets.simpleviewinc.com/simpleview/image/fetch/c_fill,g_auto,h_500,q_50,w_1400/https://assets.simpleviewinc.com/simpleview/image/upload/crm/neworleans/MarkJSindlerLSMPhoto_20110302_MG_2936_97776C47-6256-4225-881D19A220A62A4A_359a8e24-ec0b-408a-a7d694627e50a54c.jpg', true);
 INSERT INTO public.photos (photo_id, user_id, photo_path, featured) VALUES (9, 2, 'https://ir.4sqi.net/img/general/original/6566947_aHQ3guUIZnAjRa5P16OGfCiLs7eRRsl2V2jZYG5OyBQ.jpg', true);
+INSERT INTO public.photos (photo_id, user_id, photo_path, featured) VALUES (10, 2, 'audubon-zoo-new-orleans.jpg', true);
+INSERT INTO public.photos (photo_id, user_id, photo_path, featured) VALUES (11, 2, 'lafitte-greenway-new-orleans.jpg', true);
+INSERT INTO public.photos (photo_id, user_id, photo_path, featured) VALUES (12, 2, 'congo-square.jpg', true);
+INSERT INTO public.photos (photo_id, user_id, photo_path, featured) VALUES (13, 2, 'new-orleans-holocaust-museum.jpg', true);
+INSERT INTO public.photos (photo_id, user_id, photo_path, featured) VALUES (14, 2, 'New-Orleans-Swamp-Boat-Tour.jpg', true);
+INSERT INTO public.photos (photo_id, user_id, photo_path, featured) VALUES (15, 2, 'new-orleans-audubon-aquarium-of-america.jpg', true);
+INSERT INTO public.photos (photo_id, user_id, photo_path, featured) VALUES (16, 2, 'French_Quarter_New_Orleans.jpg', true);
+INSERT INTO public.photos (photo_id, user_id, photo_path, featured) VALUES (17, 2, 'preservation-hall.jpg', true);
+INSERT INTO public.photos (photo_id, user_id, photo_path, featured) VALUES (18, 2, 'Fritzels- Jazz- Club.jpg', true);
+INSERT INTO public.photos (photo_id, user_id, photo_path, featured) VALUES (19, 2, 'Commanders-Palace.jpg', true);
+INSERT INTO public.photos (photo_id, user_id, photo_path, featured) VALUES (20, 2, 'cafe-du-monde.jpg', true);
+INSERT INTO public.photos (photo_id, user_id, photo_path, featured) VALUES (21, 2, 'new-orleans-city-park.jpg', true);
+INSERT INTO public.photos (photo_id, user_id, photo_path, featured) VALUES (22, 2, 'bourbon-street.jpg', true);
 
 
 --
 -- Name: photos_photo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.photos_photo_id_seq', 9, true);
+SELECT pg_catalog.setval('public.photos_photo_id_seq', 22, true);
 
 
 --
