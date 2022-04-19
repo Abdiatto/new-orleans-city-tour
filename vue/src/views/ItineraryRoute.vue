@@ -23,10 +23,17 @@ export default {
   data() {
     return {
       data: false,
+      activeItinerary1: false,
     };
   },
   created() {
     this.$store.commit("SET_ACTIVE_ITINERARY", this.$route.params.id);
+  },
+  mounted() {
+    const allItineraries = this.$store.state.allItineraries.find(
+      (i) => i.itineraryId == this.$store.state.activeItineraryId
+    );
+    console.log("i", allItineraries);
   },
   methods: {
     loadItinerary() {
@@ -51,11 +58,13 @@ export default {
     },
   },
   watch: {
-    activeItineraryLandmarks(value) {
-      console.log("watcher");
-      if (value && value.length > 0) {
-        this.loadItinerary();
-      }
+    activeItineraryLandmarks: {
+      handler(value) {
+        console.log("watcher");
+        if (value && value.length > 0) {
+          this.loadItinerary();
+        }
+      },
     },
   },
 };
