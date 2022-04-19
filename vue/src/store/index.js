@@ -23,6 +23,7 @@ export default new Vuex.Store({
     token: currentToken || "",
     user: currentUser || {},
     activeLandmarkId: 0,
+    activeItineraryId: 0,
     allLandmarks: [],
     allDistricts: [],
     allItineraries: [],
@@ -55,7 +56,12 @@ export default new Vuex.Store({
     getItinerary: (state) => (id) => {
       const itinerary = state.allItineraries.find(i => i.itineraryId == id);
       return itinerary;
-    }
+    },
+    getActiveItinerary: (state) => () => {
+      return state.allItineraries.find(
+        (i) => i.itineraryId == state.activeItineraryId
+      );
+    },
   },
 
   mutations: {
@@ -77,6 +83,9 @@ export default new Vuex.Store({
     },
     SET_ACTIVE_LANDMARK(state, id) {
       state.activeLandmarkId = id;
+    },
+    SET_ACTIVE_ITINERARY(state, id) {
+      state.activeItineraryId = id;
     },
     SET_LANDMARKS(state, landmarks) {
       state.allLandmarks = landmarks;
@@ -126,8 +135,6 @@ export default new Vuex.Store({
       itinerariesService.update(state.allItineraries);
     },
     getItineraries({ commit }) {
-      // const i = localStorage.getItem("itineraries") || [];
-      // commit("UPDATE_ITINERARIES", JSON.parse(i));
       itinerariesService.get().then((response) => {
         commit("UPDATE_ITINERARIES", response.data);
       });

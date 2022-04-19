@@ -12,6 +12,9 @@
           >Itineraries</router-link
         >
       </li>
+      <li>
+        <router-link v-bind:to="{ name: 'maptest' }">Map Test</router-link>
+      </li>
     </ul>
   </nav>
 </template>

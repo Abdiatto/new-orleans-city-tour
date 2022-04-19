@@ -6,22 +6,29 @@
 
 <script>
 import mapboxgl from "mapbox-gl";
+import mapService from "@/services/MapService.js";
+const my_access_token = "pk.eyJ1IjoidGVrMTQiLCJhIjoiY2wyMTJmNGg2MTJndjNpbzM0NWZlajFiZSJ9.gQOh3Z5Vkxnq6tZZpe89Pw" 
 export default {
-  name: "single-point-map",
-  data() {
+name: "single-point-map",
+props: ["address"],
+data(){
     return {
       loading: false,
       location: "",
-      access_token: process.env.VUE_APP_MAP_ACCESS_TOKEN,
+      access_token:my_access_token,
       center: [-90.0715, 29.9511],
       map: {},
     };
-  },
-  mounted() {
+},
+mounted() {
     this.createMap();
+    mapService
+      .getMapPosition("")
+      .then((r) => {
+        console.log(r);
+      });
   },
-
-  methods: {
+   methods: {
     async createMap() {
       try {
         mapboxgl.accessToken = this.access_token;
@@ -29,25 +36,25 @@ export default {
           container: "map",
           style: "mapbox://styles/mapbox/outdoors-v11",
           center: this.center,
-          zoom: 11,
+          zoom: 9,
         });
-        //place a marker
+        // creating markers for each location 
+        
+        mapService.getMapPosition(this.address).then((location) =>{
+            if(location) {
+                new mapService.Marker().setLngLat.at(this.location).addTo(this.map)
+            }
+        });
         new mapboxgl.Marker().setLngLat([-90.0638, 29.95764]).addTo(this.map);
       } catch (err) {
         console.log("map error", err);
       }
     },
   },
-};
+
+}
 </script>
 
 <style>
-.map-wrapper {
-}
-#map {
-  width: 100%;
-  height: 300px;
-  padding: 0;
-  margin: 0;
-}
+
 </style>

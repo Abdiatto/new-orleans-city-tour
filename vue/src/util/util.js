@@ -26,4 +26,9 @@ export default {
     }
     return { isValid, message };
   },
+  composeAddressString(address) {
+    return `${address.addressLineOne} ${address.addressLineTwo || ""} ${
+      address.city
+    } ${address.state} ${address.zipCode}`;
+  },
 };

@@ -1,13 +1,13 @@
 <template>
   <div>
-    <single-point-map />
+    <test-map address="701 Chartres St.,New Orleans, LA 70116" />
   </div>
 </template>
 
 <script>
-import SinglePointMap from "../components/SinglePointMap.vue";
+import TestMap from "../components/TestMap.vue";
 export default {
-  components: { SinglePointMap },
+  components: { TestMap },
 };
 </script>
 
