@@ -14,7 +14,7 @@ import NavBar from "./components/NavBar.vue";
 
 export default {
   components: { NavBar },
-  created() {
+  mounted() {
     this.$store.dispatch("getLandmarks");
     this.$store.dispatch("getDistricts");
     this.$store.dispatch("getItineraries");
@@ -63,6 +63,7 @@ h6 {
 .form-button {
   display: flex;
   justify-content: flex-end;
+  gap: 0.5rem;
 }
 .form-error {
   color: var(--form-element-invalid-border-color);
