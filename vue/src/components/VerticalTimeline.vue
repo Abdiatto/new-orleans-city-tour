@@ -33,7 +33,7 @@ h6 {
   width: 2px;
   height: 100%;
   background: #ccd1d9;
-  z-index: 1;
+  z-index: 0;
 }
 
 .timeline-block {

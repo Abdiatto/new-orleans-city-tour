@@ -12,27 +12,33 @@
         <h5>Trip Details</h5>
         <h6>{{ miles(data.trips[0].distance) }} Total Miles</h6>
         <h6 class="last">{{ distance(data.trips[0].duration) }} Total</h6>
-        <vertical-timeline>
-          <template v-for="(landmark, index) in activeItineraryLandmarks">
-            <timeline-content :key="landmark.landMarkId">
-              <dynamic-image
-                :imagePath="landmark.photos[0].path"
-                :altText="`Picture of ${landmark.name}`"
-              />
-              <h6>
-                <span class="timeline-small">{{ index + 1 }}</span>
-                {{ landmark.name }}
-              </h6>
-              <p class="timeline-district">{{ landmark.district.name }}</p>
-            </timeline-content>
 
-            <timeline-content :key="index" direction="right" small="true">
-              <p>
-                {{ miles(data.trips[0].legs[index].distance) }} Miles <br />
-                {{ distance(data.trips[0].legs[index].duration) }}
-              </p>
-            </timeline-content>
-          </template>
+        <vertical-timeline>
+          <transition-group name="company">
+            <div
+              v-for="(landmark, index) in activeItineraryLandmarks"
+              :key="landmark.landMarkId"
+            >
+              <timeline-content>
+                <dynamic-image
+                  :imagePath="landmark.photos[0].path"
+                  :altText="`Picture of ${landmark.name}`"
+                />
+                <h6>
+                  <span class="timeline-small">{{ index + 1 }}</span>
+                  {{ landmark.name }}
+                </h6>
+                <p class="timeline-district">{{ landmark.district.name }}</p>
+              </timeline-content>
+
+              <timeline-content direction="right" small="true">
+                <p>
+                  {{ miles(data.trips[0].legs[index].distance) }} Miles <br />
+                  {{ distance(data.trips[0].legs[index].duration) }}
+                </p>
+              </timeline-content>
+            </div>
+          </transition-group>
         </vertical-timeline>
       </div>
     </div>
@@ -120,5 +126,29 @@ export default {
 }
 .timeline-district {
   color: var(--complement);
+}
+
+.company {
+  backface-visibility: hidden;
+  z-index: 2;
+}
+
+.company-move {
+  transition: all 600ms ease-in-out 50ms;
+}
+
+.company-enter-active {
+  transition: all 400ms ease-out;
+}
+
+.company-leave-active {
+  transition: all 200ms ease-in;
+  position: absolute;
+  z-index: 1;
+}
+
+.company-enter,
+.company-leave-to {
+  opacity: 0;
 }
 </style>

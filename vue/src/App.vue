@@ -90,4 +90,10 @@ h6 {
     display: block;
   }
 }
+
+@media (min-width: 1600px) {
+  .container {
+    max-width: 1480px;
+  }
+}
 </style>
