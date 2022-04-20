@@ -11,9 +11,11 @@ import java.util.List;
 public class JdbcLandMarkDao implements LandMarkDao{
     private JdbcTemplate jdbcTemplate;
     private PhotoDao photoDao;
-    public JdbcLandMarkDao(JdbcTemplate jdbcTemplate, PhotoDao photoDao) {
+    private ReviewDao reviewDao;
+    public JdbcLandMarkDao(JdbcTemplate jdbcTemplate, PhotoDao photoDao, ReviewDao reviewDao) {
         this.photoDao = photoDao;
         this.jdbcTemplate = jdbcTemplate;
+        this.reviewDao = reviewDao;
     }
 
     @Override
@@ -72,6 +74,8 @@ public class JdbcLandMarkDao implements LandMarkDao{
         LandMark landMark = new LandMark();
         Address address = new Address();
         District district = new District();
+        List<Review> reviews =reviewDao.list(row.getInt("landmark_id")) ;
+        landMark.setReview(reviews);
         List<Photo> photos = photoDao.list(row.getInt("landmark_id"));
         landMark.setPhotos(photos);
         landMark.setLandMarkId(row.getInt("landmark_id"));
