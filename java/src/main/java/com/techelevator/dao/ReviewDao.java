@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface ReviewDao {
     List<Review> list(Integer landmark_id);
-    void add(Integer landmark_id, String content);
+    Review add(Review review);
+    void update(Review review);
 }

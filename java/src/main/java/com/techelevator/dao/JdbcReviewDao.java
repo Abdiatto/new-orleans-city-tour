@@ -22,7 +22,6 @@ public class JdbcReviewDao implements ReviewDao {
     public List<Review> list(Integer landmarkId) {
         List<Review> reviews = new ArrayList<>();
         String sqlCode = "SELECT reviews.review_id, content, thumbs_up, username FROM reviews " +
-                "JOIN landmarks_reviews ON reviews.review_id = landmarks_reviews.review_id " +
                 "JOIN users ON users.user_id = reviews.user_id " +
                 "WHERE landmark_id = ? ";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sqlCode, landmarkId);
@@ -33,13 +32,19 @@ public class JdbcReviewDao implements ReviewDao {
     }
 
     @Override
-    public void add(Integer landmarkId, String content) {
-        String sql = "INSERT INTO reviews(content, thumbs_up, user_id) " +
+    public Review add(Review review) {
+        String sql = "INSERT INTO reviews(content, thumbs_up, user_id, landmark_id) " +
                 "VALUES(?, ?, ?) RETURNING review_id; ";
-        Integer id = jdbcTemplate.queryForObject(sql, Integer.class, content);
-        String sql2 = "INSERT INTO landmarks_reviews(landmark_id, review_id) " +
-                "VALUES(?, ?);";
-        jdbcTemplate.update(sql2,landmarkId,id);
+        Integer id = jdbcTemplate.queryForObject(sql, Integer.class,review.getContent(), review.isThumbs_Up());
+        return review;
+    }
+
+    @Override
+    public void update(Review review) {
+        String sqlCode = "UPDATE reviews " +
+                "SET content=?, thumbs_up=?, user_id=?, landmark_id=? " +
+                "WHERE review_id=?";
+        jdbcTemplate.update(sqlCode,review.getContent(), review.isThumbs_Up());
     }
 
     private Review mapRowToReview(SqlRowSet row){
@@ -47,6 +52,7 @@ public class JdbcReviewDao implements ReviewDao {
         review.setUsername(row.getString("username"));
         review.setContent(row.getString("content"));
         review.setThumbs_Up(row.getBoolean("thumbs_up"));
+
         return review;
     }
 }

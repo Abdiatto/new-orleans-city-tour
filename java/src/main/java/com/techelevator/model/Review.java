@@ -1,6 +1,7 @@
 package com.techelevator.model;
 
 public class Review {
+
     private String username= "";
     private String content = "";
     private boolean thumbs_Up = false;

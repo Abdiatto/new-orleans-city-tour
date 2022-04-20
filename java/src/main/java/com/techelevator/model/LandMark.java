@@ -10,7 +10,7 @@ public class LandMark {
     private Address address;
     private District district;
     private List<Photo> photos;
-
+    private List<Review> review;
     public List<Photo> getPhotos() {
         return photos;
     }
@@ -80,4 +80,13 @@ public class LandMark {
     public void setDistrict(District district) {
         this.district = district;
     }
+
+    public List<Review> getReview() {
+        return review;
+    }
+
+    public void setReview(List<Review> review) {
+        this.review = review;
+    }
 }
+

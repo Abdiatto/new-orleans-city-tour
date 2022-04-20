@@ -78,9 +78,11 @@ CREATE TABLE itineraries(
 CREATE TABLE reviews(
 	review_id serial primary key,
 	user_id bigint not null, 
+	landmark_id bigint not null,
 	content text, 
 	thumbs_up boolean,
-	constraint fk_user_id foreign key (user_id) references users(user_id)
+	constraint fk_user_id foreign key (user_id) references users(user_id),
+	constraint fk_landmark_id foreign key (landmark_id) references landmarks(landmark_id)
 );
 CREATE TABLE photos(
 	photo_id serial primary key,
