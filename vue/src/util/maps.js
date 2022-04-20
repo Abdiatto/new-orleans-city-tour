@@ -52,6 +52,17 @@ export default {
   addBasicWaypoint(lngLat, map) {
     new mapboxgl.Marker().setLngLat(lngLat).addTo(map);
   },
+  addCustomWaypoint(el, lngLat, map, html) {
+    if (html) {
+      const popup = new mapboxgl.Popup({ offset: 32 }).setHTML(html);
+      new mapboxgl.Marker(el)
+        .setLngLat(lngLat)
+        .setPopup(popup)
+        .addTo(map);
+    } else {
+      new mapboxgl.Marker(el).setLngLat(lngLat).addTo(map);
+    }
+  },
   newGeocoderSearch() {
     return new mapboxGeocoder({
       accessToken: mapboxgl.accessToken,
