@@ -6,6 +6,7 @@
           ><dynamic-image imagePath="logo-small.png"
         /></router-link>
       </li>
+      <li style="color: #000" v-if="isLoggedIn">Hello, {{ getUsername }}! </li>
       <li v-if="isAdmin"><router-link v-bind:to="{ name: 'add' }">Add</router-link></li>
       <li v-if="isLoggedIn">
         <router-link v-bind:to="{ name: 'itineraries' }"
@@ -14,8 +15,8 @@
       </li>
       <li v-if="isNotLoggedIn"><router-link v-bind:to="{name: 'register'}">Register</router-link></li>
       <li v-if="isNotLoggedIn"><router-link v-bind:to="{name: 'login'}">Login</router-link></li>
+      <li v-if="isLoggedIn"><router-link v-bind:to="{name: 'logout'}">Logout</router-link></li>
     </ul>
-    <span style="float:right" v-if="isLoggedIn">Hello, {{ getUsername }}! <router-link v-bind:to="{name: 'logout'}">Logout</router-link></span>
   </nav>
 </template>
 

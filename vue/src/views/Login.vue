@@ -6,7 +6,7 @@
         class="alert alert-danger"
         role="alert"
         v-if="invalidCredentials"
-      >Invalid email and/or password!</div>
+      >Invalid username and/or password!</div>
       <div
         class="alert alert-success"
         role="alert"

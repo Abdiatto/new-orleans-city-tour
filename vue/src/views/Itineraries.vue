@@ -23,7 +23,7 @@
     </details>
     <h4>My Itineraries</h4>
     <itinerary-settings
-      v-for="(itinerary, index) in $store.state.allItineraries"
+      v-for="(itinerary, index) in itinerariesOfUser"
       :key="index"
       :itinerary="itinerary"
     />
@@ -57,6 +57,12 @@ export default {
       isOpen: false,
     };
   },
+  computed: {
+    itinerariesOfUser() {
+      const userId = this.$store.state.user.id;
+      return this.$store.state.allItineraries.filter(iti => iti.userId == userId);
+    }
+  }
 };
 </script>
 

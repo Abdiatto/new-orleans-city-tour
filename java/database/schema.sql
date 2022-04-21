@@ -29,7 +29,6 @@ CREATE TABLE users (
 	username varchar(50) NOT NULL UNIQUE,
 	password_hash varchar(200) NOT NULL,
 	role varchar(50) NOT NULL,
-	full_name VARCHAR(100) NOT NULL,
 	email_add varchar(50) NOT NULL,
 	CONSTRAINT PK_user PRIMARY KEY (user_id)
 );
@@ -113,8 +112,8 @@ CREATE TABLE landmarks_itinerary(
 
 );
 
-INSERT INTO users (username,password_hash,role,full_name,email_add) VALUES ('user','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER', 'User', 'email1@domain.com');
-INSERT INTO users (username,password_hash,role,full_name,email_add) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN', 'Admin', 'email2@domain.com');
+INSERT INTO users (username,password_hash,role,email_add) VALUES ('user','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER', 'email1@domain.com');
+INSERT INTO users (username,password_hash,role,email_add) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN', 'email2@domain.com');
 
 
 INSERT INTO public.address (address_id, address_line_1, address_line_2, city, state, zipcode) VALUES (1, '1751 Gentilly Blvd', '', 'New Orleans', 'LA', 70119);

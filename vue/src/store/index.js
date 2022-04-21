@@ -125,6 +125,7 @@ export default new Vuex.Store({
         name,
         landmarks: [],
         itineraryId: Date.now(),
+        userId: state.user.id,
       });
     },
     REMOVE_ITINERARY(state, itinerary) {
