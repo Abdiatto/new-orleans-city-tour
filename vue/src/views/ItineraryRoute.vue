@@ -1,7 +1,7 @@
 <template>
   <article v-if="data">
     <itinerary-map v-if="data" :geoData="data" />
-    <h3 v-if="activeItinerary">
+    <h3 class="itinerary-header" v-if="activeItinerary">
       {{ activeItinerary.name }} Itinerary Optimized Travel Route
     </h3>
     <div class="grid">
@@ -121,6 +121,10 @@ export default {
 </script>
 
 <style>
+.itinerary-header {
+  margin: 1rem 0;
+}
+
 .last {
   margin-bottom: 8px;
 }

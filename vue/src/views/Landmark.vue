@@ -36,8 +36,10 @@ export default {
     isLoggedIn() {
       return this.$store.getters.isUserLoggedIn();
     },
+
   },
 };
+
 </script>
 
 <style scoped>
