@@ -15,7 +15,7 @@ import NavBar from "./components/NavBar.vue";
 
 export default {
   components: { NavBar },
-  created() {
+  mounted() {
     this.$store.dispatch("getLandmarks");
     this.$store.dispatch("getDistricts");
     this.$store.dispatch("getItineraries");
@@ -57,6 +57,32 @@ h6 {
   font-family: var(--header-font-family);
   --typography-spacing-vertical: 0.2rem;
 }
+html {
+  min-height: 100vh;
+  background-image: linear-gradient(
+    330deg,
+    hsl(48deg 95% 85%) 1%,
+    hsl(48deg 96% 86%) 44%,
+    hsl(47deg 97% 88%) 51%,
+    hsl(47deg 98% 89%) 52%,
+    hsl(47deg 99% 90%) 52%,
+    hsl(46deg 100% 92%) 52%,
+    hsl(46deg 100% 93%) 51%,
+    hsl(46deg 100% 95%) 52%,
+    hsl(46deg 100% 96%) 54%,
+    hsl(46deg 100% 97%) 61%,
+    hsl(46deg 100% 99%) 73%,
+    hsl(0deg 0% 100%) 100%
+  );
+  transition: transform 0.3s ease-out;
+  transform: scaleY(1);
+  transform-origin: top;
+  height: auto;
+}
+
+article {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
 
 .form-button button,
 .form-button input[type="submit"] {
@@ -65,6 +91,7 @@ h6 {
 .form-button {
   display: flex;
   justify-content: flex-end;
+  gap: 0.5rem;
 }
 .form-error {
   color: var(--form-element-invalid-border-color);
@@ -73,6 +100,9 @@ h6 {
 .warning {
   background-color: var(--warn);
   border-color: var(--warn);
+}
+.mapboxgl-popup-content h6 {
+  font-size: 0.7rem;
 }
 @media screen and (min-width: 576px) and (max-width: 768px) {
   .container {
@@ -86,6 +116,12 @@ h6 {
   }
   .form-button {
     display: block;
+  }
+}
+
+@media (min-width: 1600px) {
+  .container {
+    max-width: 1480px;
   }
 }
 </style>

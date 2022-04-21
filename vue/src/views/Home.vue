@@ -1,11 +1,13 @@
 <template>
   <div class="home">
-    <h1>Welcome to New Orleans</h1>
-    <p>
-      Known as The Big Easy, New Orleans is world-renowned for its distinctive
-      music, Creole cuisine, unique dialects, and its annual celebrations and
-      festivals, most notably its historical landmarks.
-    </p>
+    <div>
+      <h1>Welcome to New Orleans</h1>
+      <p>
+        Known as The Big Easy, New Orleans is world-renowned for its distinctive
+        music, Creole cuisine, unique dialects, and its annual celebrations and
+        festivals, most notably its historical landmarks.
+      </p>
+    </div>
     <filter-search />
     <div class="grid">
       <landmark-card

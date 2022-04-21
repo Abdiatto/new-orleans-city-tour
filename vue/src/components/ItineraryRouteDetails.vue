@@ -42,7 +42,15 @@ export default {
     console.log(JSON.parse(JSON.stringify(this.oldData)));
   },
   methods: {
-    //findLandmarkByWaypointId(waypointIndex) {},
+    findLandmarkByWaypointId(waypointIndex) {
+      const waypoint = this.oldData.waypoints.findIndex((waypoint) => {
+        return waypoint.waypoint_index === waypointIndex;
+      });
+      const id = this.itinerary.landmarks[waypoint];
+      return this.$store.state.allLandmarks.find((landmark) => {
+        return landmark.landMarkId == id;
+      });
+    },
     findLandmarkIdByWaypoint(waypointIndex) {
       const waypoint = this.oldData.waypoints.findIndex((waypoint) => {
         return waypoint.waypoint_index === waypointIndex;

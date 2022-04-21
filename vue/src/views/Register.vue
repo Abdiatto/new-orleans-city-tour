@@ -10,10 +10,19 @@
         type="text"
         id="username"
         class="form-control"
-        placeholder="Username"
+        placeholder="Username used to login"
         v-model="user.username"
         required
         autofocus
+      />
+      <label for="email" class="sr-only">Email</label>
+      <input
+        type="email"
+        id="email"
+        class="form-control"
+        placeholder="Email Address"
+        v-model="user.email"
+        required
       />
       <label for="password" class="sr-only">Password</label>
       <input
@@ -49,6 +58,7 @@ export default {
     return {
       user: {
         username: '',
+        email: '',
         password: '',
         confirmPassword: '',
         role: 'user',

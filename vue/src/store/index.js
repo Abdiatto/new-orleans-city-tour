@@ -66,6 +66,19 @@ export default new Vuex.Store({
         (i) => i.itineraryId == state.activeItineraryId
       );
     },
+    isUserLoggedIn: (state) => () => {
+      return Object.entries(state.user).length !== 0;
+    },
+    getUsername: (state) => () => {
+      if (Object.entries(state.user).length !== 0) 
+        return state.user.username;
+      else
+        return "";
+    },
+    isUserAdmin: (state) => () => {
+      console.log(state.user.role);
+      return (Object.entries(state.user).length !== 0) && state.user.role.includes('ROLE_ADMIN');
+    }
   },
 
   mutations: {
@@ -114,6 +127,7 @@ export default new Vuex.Store({
         name,
         landmarks: [],
         itineraryId: Date.now(),
+        userId: state.user.id,
       });
     },
     REMOVE_ITINERARY(state, itinerary) {
@@ -131,6 +145,7 @@ export default new Vuex.Store({
     SET_WEATHER(state, value) {
       state.weather = value;
     }
+    
   },
   actions: {
     getLandmarks({ state, commit }) {

@@ -3,6 +3,7 @@ import mapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import * as turf from "@turf/turf";
 
 mapboxgl.accessToken = process.env.VUE_APP_MAP_ACCESS_TOKEN;
+let markers = [];
 export default {
   //default values for the map, default center is new orleans
   mapSettings: {
@@ -51,6 +52,25 @@ export default {
   //adds a basic waypoint to a map
   addBasicWaypoint(lngLat, map) {
     new mapboxgl.Marker().setLngLat(lngLat).addTo(map);
+  },
+  addCustomWaypoint(el, lngLat, map, html) {
+    let mark;
+    if (html) {
+      const popup = new mapboxgl.Popup({ offset: 32 }).setHTML(html);
+      mark = new mapboxgl.Marker(el)
+        .setLngLat(lngLat)
+        .setPopup(popup)
+        .addTo(map);
+    } else {
+      mark = new mapboxgl.Marker(el).setLngLat(lngLat).addTo(map);
+    }
+    if (mark) {
+      markers.push(mark);
+    }
+  },
+  clearMarkers() {
+    markers.forEach((m) => m.remove());
+    markers = [];
   },
   newGeocoderSearch() {
     return new mapboxGeocoder({

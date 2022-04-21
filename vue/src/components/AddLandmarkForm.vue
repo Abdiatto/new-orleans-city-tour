@@ -1,5 +1,9 @@
 <template>
-  <form v-on:submit.prevent="saveLandmark" novalidate="true">
+  <form
+    v-on:submit.prevent="saveLandmark"
+    novalidate="true"
+    enctype="multipart/form-data"
+  >
     <label for="name"
       >Location Name<input
         type="text"
@@ -90,19 +94,21 @@
         }}</small>
       </label>
     </div>
-    <label for="imagePath">
-      Path to Image
+
+    <label for="imageUpload">
+      Upload an Image
       <input
-        type="url"
-        name="imagePath"
-        id="imagePath"
-        v-model.trim="newLandmark.photoPath"
-        :aria-invalid="!formErrors.photoPath.isValid"
+        type="file"
+        name="imageUpload"
+        id="imageUpload"
+        :aria-invalid="!formErrors.photoFile.isValid"
+        @change="uploadChange($event)"
       />
-      <small v-show="!formErrors.photoPath.isValid" class="form-error">{{
-        formErrors.photoPath.message
+      <small v-show="!formErrors.photoFile.isValid" class="form-error">{{
+        formErrors.photoFile.message
       }}</small>
     </label>
+
     <label for="content">About this new location</label>
     <textarea
       name="content"
@@ -147,7 +153,9 @@ export default {
         district_id: { isValid: true, message: "" },
         content: { isValid: true, message: "" },
         photoPath: { isValid: true, message: "" },
+        photoFile: { isValid: true, message: "" },
       },
+      photoData: new FormData(),
     };
   },
   methods: {
@@ -170,8 +178,9 @@ export default {
       this.formErrors.district_id = district_id;
       const content = util.validateLength(this.newLandmark.content, 25, 10000);
       this.formErrors.content = content;
-      const photoPath = util.validateLength(this.newLandmark.photoPath, 3, 300);
-      this.formErrors.photoPath = photoPath;
+      const photoFile = util.validateFile(this.photoData);
+      this.formErrors.photoFile = photoFile;
+
       return (
         name.isValid &&
         addressLineOne.isValid &&
@@ -179,18 +188,27 @@ export default {
         zipCode.isValid &&
         district_id.isValid &&
         content.isValid &&
-        photoPath.isValid &&
+        photoFile.isValid &&
         city.isValid
       );
     },
     saveLandmark() {
       if (this.validateForm()) {
-        landmarkService.addLandmark(this.newLandmark).then(() => {
-          this.$store.dispatch("getLandmarks");
-          this.$store.dispatch("getDistricts");
-          this.$router.push({ name: "home" });
+        landmarkService.uploadImage(this.photoData).then((r) => {
+          if (r.status >= 200 && r.status < 300) {
+            this.newLandmark.photoPath = r.data.secure_url;
+            landmarkService.addLandmark(this.newLandmark).then(() => {
+              this.$store.dispatch("getLandmarks");
+              this.$store.dispatch("getDistricts");
+              this.$router.push({ name: "home" });
+            });
+          }
         });
       }
+    },
+    uploadChange(e) {
+      this.photoData.set("upload_preset", "i3xje6fq");
+      this.photoData.set("file", e.target.files[0]);
     },
   },
 };

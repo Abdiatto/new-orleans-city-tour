@@ -20,8 +20,7 @@ SET row_security = off;
 -- Data for Name: itineraries; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-
-INSERT INTO public.itineraries (user_id, storage) VALUES (1, '[{"name": "Trip1", "landmarks": [8, 9, 2, 3], "itineraryId": 1650049453489}]');
+INSERT INTO public.itineraries (user_id, storage) VALUES (1, '[{"name": "Trip1", "landmarks": [8, 9, 2, 3], "itineraryId": 1650049453489}, {"name": "New One", "userId": 2, "landmarks": [13, 9, 7, 21, 18, 22], "itineraryId": 1650514453897}]');
 
 
 --

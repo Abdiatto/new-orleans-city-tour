@@ -9,7 +9,7 @@
       <p>{{ activeLandmark.district.name }}</p>
       <address-line :address="activeLandmark.address" />
     </div>
-    <add-to-itinerary :landmarkId="activeLandmark.landMarkId" />
+    <add-to-itinerary :landmarkId="activeLandmark.landMarkId" v-if="isLoggedIn" />
     <h6>About</h6>
     <p class="content">
       {{ activeLandmark.content }}
@@ -33,8 +33,13 @@ export default {
         return landmark.landMarkId == this.$store.state.activeLandmarkId;
       });
     },
+    isLoggedIn() {
+      return this.$store.getters.isUserLoggedIn();
+    },
+
   },
 };
+
 </script>
 
 <style scoped>

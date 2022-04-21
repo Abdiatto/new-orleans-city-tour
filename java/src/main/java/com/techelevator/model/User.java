@@ -10,17 +10,20 @@ public class User {
 
    private Long id;
    private String username;
+   private String email;
    @JsonIgnore
    private String password;
    @JsonIgnore
    private boolean activated;
    private Set<Authority> authorities = new HashSet<>();
+   private String role;
 
    public User() { }
 
-   public User(Long id, String username, String password, String authorities) {
+   public User(Long id, String username, String password, String authorities, String email) {
       this.id = id;
       this.username = username;
+      this.email = email;
       this.password = password;
       if(authorities != null) this.setAuthorities(authorities);
       this.activated = true;
@@ -40,6 +43,15 @@ public class User {
 
    public void setUsername(String username) {
       this.username = username;
+   }
+
+
+   public String getEmail() {
+      return email;
+   }
+
+   public void setEmail(String email) {
+      this.email = email;
    }
 
    public String getPassword() {
@@ -68,10 +80,19 @@ public class User {
 
    public void setAuthorities(String authorities) {
       String[] roles = authorities.split(",");
+      this.role = "";
       for(String role : roles) {
+         if (!this.role.isEmpty()) {
+            this.role += ",";
+         }
          String authority = role.contains("ROLE_") ? role : "ROLE_" + role;
+         this.role += authority;
          this.authorities.add(new Authority(authority));
       }
+   }
+
+   public String getRole() {
+      return role;
    }
 
    @Override

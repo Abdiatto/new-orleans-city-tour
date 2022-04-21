@@ -24,7 +24,7 @@ export default {
   props: ["landmarkId"],
   data() {
     return {
-      itineraries: this.$store.state.allItineraries,
+      itineraries: this.$store.state.allItineraries.filter(iti => iti.userId == this.$store.state.user.id),
     };
   },
   watch: {
