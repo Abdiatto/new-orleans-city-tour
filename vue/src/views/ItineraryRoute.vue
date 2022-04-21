@@ -1,5 +1,5 @@
 <template>
-  <article v-if="data">
+  <article>
     <itinerary-map v-if="data" :geoData="data" />
     <h3 class="itinerary-header" v-if="activeItinerary">
       {{ activeItinerary.name }} Itinerary Optimized Travel Route
@@ -13,7 +13,7 @@
         <h6>{{ miles(data.trips[0].distance) }} Total Miles</h6>
         <h6 class="last">{{ distance(data.trips[0].duration) }} Total</h6>
 
-        <vertical-timeline>
+        <vertical-timeline v-if="data">
           <transition-group name="company">
             <div
               v-for="(landmark, index) in activeItineraryLandmarks"
@@ -40,6 +40,9 @@
             </div>
           </transition-group>
         </vertical-timeline>
+        <div v-else>
+          <h6>Need more than two locations to generate a route</h6>
+        </div>
       </div>
     </div>
   </article>
@@ -111,7 +114,7 @@ export default {
   watch: {
     activeItineraryLandmarks: {
       handler(value) {
-        if (value && value.length > 0) {
+        if (value && value.length > 1) {
           this.loadItinerary();
         }
       },

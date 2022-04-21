@@ -1,5 +1,5 @@
 <template>
-  <nav class="d-flex flex-row align-content-center">
+  <nav>
     <ul>
       <li>
         <router-link v-bind:to="{ name: 'home' }"
@@ -21,8 +21,8 @@
         <router-link v-bind:to="{ name: 'login' }">Login</router-link>
       </li>
     </ul>
-    <ul>
-      <li v-if="isLoggedIn">Welcome, {{ getUsername }}.</li>
+    <ul v-if="isLoggedIn">
+      <li>Welcome, {{ getUsername }}.</li>
       <li><router-link v-bind:to="{ name: 'logout' }">Logout</router-link></li>
     </ul>
   </nav>
