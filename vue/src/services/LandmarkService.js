@@ -1,4 +1,6 @@
 import axios from "axios";
+const https = axios.create();
+
 const cloudname = "dd7jkh7y6";
 const cloudurl =
   "https://api.cloudinary.com/v1_1/" + cloudname + "/image/upload";
@@ -16,6 +18,6 @@ export default {
     return axios.get(`/itinerary/${id}/landmarks`);
   },
   uploadImage(formData) {
-    return axios.post(cloudurl, formData);
+    return https.post(cloudurl, formData);
   },
 };

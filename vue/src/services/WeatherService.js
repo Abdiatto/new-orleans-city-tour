@@ -1,5 +1,5 @@
 import axios from "axios";
-
+const https = axios.create();
 export default {
   getCurrent() {
     let lat = "29.951066";
@@ -9,6 +9,6 @@ export default {
     let units = "imperial";
     let url = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${key}&units=${units}&lang=${lang}`;
 
-    return axios.get("https://safe-plateau-49424.herokuapp.com/" + url);
+    return https.get(url);
   },
 };
