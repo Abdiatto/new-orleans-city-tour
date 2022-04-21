@@ -56,7 +56,7 @@ public class JdbcUserDao implements UserDao {
     @Override
     public List<User> findAll() {
         List<User> users = new ArrayList<>();
-        String sql = "select * from users";
+        String sql = "select user_id, username, password_hash, role, email_add from users";
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
         while(results.next()) {
@@ -80,11 +80,23 @@ public class JdbcUserDao implements UserDao {
     }
 
     @Override
-    public boolean create(String username, String password, String role) {
+    public User findByEmail(String email) {
+        if(email == null) throw new IllegalArgumentException("Email cannot be null");
+
+        for (User user : this.findAll()) {
+            if( user.getEmail().toLowerCase().equals(email.toLowerCase())) {
+                return user;
+            }
+        }
+        throw new UsernameNotFoundException("User " + email + " was not found.");
+    }
+
+    @Override
+    public boolean create(String username, String password, String role, String email) {
         boolean userCreated = false;
 
         // create user
-        String insertUser = "insert into users (username,password_hash,role) values(?,?,?)";
+        String insertUser = "insert into users (username,password_hash,role, email_add) values(?,?,?,?)";
         String password_hash = new BCryptPasswordEncoder().encode(password);
         String ssRole = role.toUpperCase().startsWith("ROLE") ? role.toUpperCase() : "ROLE_" + role.toUpperCase();
 
@@ -95,6 +107,7 @@ public class JdbcUserDao implements UserDao {
                     ps.setString(1, username);
                     ps.setString(2, password_hash);
                     ps.setString(3, ssRole);
+                    ps.setString(4, email);
                     return ps;
                 }
                 , keyHolder) == 1;
@@ -107,6 +120,7 @@ public class JdbcUserDao implements UserDao {
         User user = new User();
         user.setId(rs.getLong("user_id"));
         user.setUsername(rs.getString("username"));
+        user.setEmail(rs.getString("email_add"));
         user.setPassword(rs.getString("password_hash"));
         user.setAuthorities(rs.getString("role"));
         user.setActivated(true);

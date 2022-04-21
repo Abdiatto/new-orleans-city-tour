@@ -12,9 +12,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import java.util.List;
 
 public class JdbcUserDaoTests extends BaseDaoTests {
-    protected static final User USER_1 = new User(1L, "user1", "user1", "ROLE_USER");
-    protected static final User USER_2 = new User(2L, "user2", "user2", "ROLE_USER");
-    private static final User USER_3 = new User(3L, "user3", "user3", "ROLE_USER");
+    protected static final User USER_1 = new User(1L, "user1", "user1", "ROLE_USER", "email1@domain.com");
+    protected static final User USER_2 = new User(2L, "user2", "user2", "ROLE_USER", "email2@domain.com");
+    private static final User USER_3 = new User(3L, "user3", "user3", "ROLE_USER", "email3@domain.com");
 
     private JdbcUserDao sut;
 
@@ -88,24 +88,24 @@ public class JdbcUserDaoTests extends BaseDaoTests {
 
     @Test(expected = DataIntegrityViolationException.class)
     public void create_user_with_null_username() {
-        sut.create(null, USER_3.getPassword(), "ROLE_USER");
+        sut.create(null, USER_3.getPassword(), "ROLE_USER", "email@domain.com");
     }
 
     @Test(expected = DataIntegrityViolationException.class)
     public void create_user_with_existing_username() {
-        sut.create(USER_1.getUsername(), USER_3.getPassword(), "ROLE_USER");
+        sut.create(USER_1.getUsername(), USER_3.getPassword(), "ROLE_USER", "email@domain.com");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void create_user_with_null_password() {
-        sut.create(USER_3.getUsername(), null, "ROLE_USER");
+        sut.create(USER_3.getUsername(), null, "ROLE_USER", "email@domain.com");
     }
 
     @Test
     public void create_user_creates_a_user() {
-        User newUser = new User(-1L, "new", "user", "ROLE_USER");
+        User newUser = new User(-1L, "new", "user", "ROLE_USER","email@domain.com");
 
-        boolean userWasCreated = sut.create(newUser.getUsername(), newUser.getPassword(), "ROLE_USER");
+        boolean userWasCreated = sut.create(newUser.getUsername(), newUser.getPassword(), "ROLE_USER", "email@domain.com");
 
         Assert.assertTrue(userWasCreated);
 
@@ -114,5 +114,11 @@ public class JdbcUserDaoTests extends BaseDaoTests {
 
         actualUser.setPassword(newUser.getPassword()); // reset password back to unhashed password for testing
         Assert.assertEquals(newUser, actualUser);
+    }
+
+    @Test
+    public void find_user_by_email() {
+        User user = sut.findByEmail("email1@domain.com");
+        Assert.assertEquals(USER_1, user);
     }
 }

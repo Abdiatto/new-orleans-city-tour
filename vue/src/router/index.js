@@ -10,7 +10,6 @@ import Landmark from "@/views/Landmark.vue";
 import NotFound from "@/views/NotFound.vue";
 import Itineraries from "@/views/Itineraries.vue";
 import SendEmail from "@/views/SendEmail.vue";
-import MapTest from "@/views/MapTest.vue";
 import ItineraryRoute from "@/views/ItineraryRoute.vue";
 
 Vue.use(Router);
@@ -86,16 +85,8 @@ const router = new Router({
     },
     {
       path: "/itineraries/:id/email",
-      name: 'email',
+      name: "email",
       component: SendEmail,
-      meta: {
-        requiresAuth: false,
-      },
-    },
-    {
-      path: "/maptest",
-      name: "maptest",
-      component: MapTest,
       meta: {
         requiresAuth: false,
       },

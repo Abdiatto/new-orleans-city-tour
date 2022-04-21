@@ -9,9 +9,7 @@
       <p>{{ activeLandmark.district.name }}</p>
       <address-line :address="activeLandmark.address" />
     </div>
-    <add-to-itinerary :landmarkId="activeLandmark.landMarkId" />
-    <h5>location</h5>
-    <landmark-maps v-for="address in Address" v-bind:key="address.id" />
+    <add-to-itinerary :landmarkId="activeLandmark.landMarkId" v-if="isLoggedIn" />
     <h6>About</h6>
     <p class="content">
       {{ activeLandmark.content }}
@@ -34,6 +32,9 @@ export default {
       return this.$store.state.allLandmarks.find((landmark) => {
         return landmark.landMarkId == this.$store.state.activeLandmarkId;
       });
+    },
+    isLoggedIn() {
+      return this.$store.getters.isUserLoggedIn();
     },
   },
 };

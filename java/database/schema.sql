@@ -28,6 +28,8 @@ CREATE TABLE users (
 	username varchar(50) NOT NULL UNIQUE,
 	password_hash varchar(200) NOT NULL,
 	role varchar(50) NOT NULL,
+	full_name VARCHAR(100) NOT NULL,
+	email_add varchar(50) NOT NULL,
 	CONSTRAINT PK_user PRIMARY KEY (user_id)
 );
 
@@ -108,8 +110,8 @@ CREATE TABLE landmarks_itinerary(
 
 );
 
-INSERT INTO users (username,password_hash,role) VALUES ('user','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
-INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
+INSERT INTO users (username,password_hash,role,full_name,email_add) VALUES ('user','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER', 'User', 'email1@domain.com');
+INSERT INTO users (username,password_hash,role,full_name,email_add) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN', 'Admin', 'email2@domain.com');
 
 
 INSERT INTO public.address (address_id, address_line_1, address_line_2, city, state, zipcode) VALUES (1, '1751 Gentilly Blvd', '', 'New Orleans', 'LA', 70119);
@@ -121,7 +123,7 @@ INSERT INTO public.address (address_id, address_line_1, address_line_2, city, st
 INSERT INTO public.address (address_id, address_line_1, address_line_2, city, state, zipcode) VALUES (7, '500 Chartres St', '', 'New Orleans', 'LA', 70130);
 INSERT INTO public.address (address_id, address_line_1, address_line_2, city, state, zipcode) VALUES (8, '400 Esplanade Ave', '', 'New Orleans', 'LA', 70116);
 INSERT INTO public.address (address_id, address_line_1, address_line_2, city, state, zipcode) VALUES (9, '701 Chartres St.', '', 'New Orleans', 'LA', 70116);
-SELECT pg_catalog.setval('public.districts_district_id_seq', 13, true);
+SELECT pg_catalog.setval('public.address_address_id_seq', 9, true);
 INSERT INTO public.districts (district_id, district_name) VALUES (1, 'French Quarter');
 INSERT INTO public.districts (district_id, district_name) VALUES (2, 'Uptown');
 INSERT INTO public.districts (district_id, district_name) VALUES (3, 'Treme');
