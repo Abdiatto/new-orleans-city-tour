@@ -6,7 +6,10 @@
 </template>
 
 <script>
+import Vue from "vue";
+import MapCustomMarker from "@/components/MapCustomMarker.vue";
 import maps from "@/util/maps.js";
+import util from "@/util/util.js";
 import * as turf from "@turf/turf";
 
 export default {
@@ -38,26 +41,51 @@ export default {
     canLoadRoute() {
       return this.loaded && "geometry" in this.geoData.trips[0];
     },
+    landmarks() {
+      return this.$store.getters.getLandmarksByItinerary(
+        this.$store.state.activeItineraryId
+      );
+    },
   },
   methods: {
     loadWayPoints() {
       const start = this.geoData.trips[0].geometry.coordinates[0];
-      console.log(JSON.parse(JSON.stringify(this.geoData)));
-      console.log(start);
       const geometry = this.geoData.trips[0].geometry;
       const routeGeoJSON = turf.featureCollection([turf.feature(geometry)]);
       this.map.getSource("route").setData(routeGeoJSON);
-      this.geoData.waypoints.forEach((waypoint) => {
-        maps.addBasicWaypoint(waypoint.location, this.map);
+      this.geoData.waypoints.forEach((waypoint, index) => {
+        const landmark = this.landmarks[index];
+        this.customWayPoint(waypoint.location, landmark);
       });
+
       this.map.flyTo({
         center: start,
       });
+    },
+    customWayPoint(location, landmark) {
+      const imageUrl = util.composeCloudinary(
+        landmark.photos[0].path,
+        "t_point"
+      );
+      const MarkerClass = Vue.extend(MapCustomMarker);
+      const markerInstance = new MarkerClass({
+        propsData: { imageUrl },
+      });
+      markerInstance.$mount();
+      const html = `<h6>${landmark.name}</h6>`;
+      maps.addCustomWaypoint(markerInstance.$el, location, this.map, html);
     },
   },
   watch: {
     canLoadRoute(value) {
       if (value) {
+        maps.clearMarkers();
+        this.loadWayPoints();
+      }
+    },
+    geoData() {
+      if (this.canLoadRoute) {
+        maps.clearMarkers();
         this.loadWayPoints();
       }
     },

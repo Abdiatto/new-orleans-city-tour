@@ -26,9 +26,42 @@ export default {
     }
     return { isValid, message };
   },
+  validateFile(value) {
+    let isValid = true;
+    let message = "";
+    if (!value.has("file")) {
+      isValid = false;
+      message = "Please choose an image file";
+    }
+    return { isValid, message };
+  },
   composeAddressString(address) {
     return `${address.addressLineOne} ${address.addressLineTwo || ""} ${
       address.city
     } ${address.state} ${address.zipCode}`;
+  },
+  composeCloudinary(url, filter) {
+    const actualFilter = filter ? filter : "";
+    const sub = "https://res.cloudinary.com/dd7jkh7y6/image/upload/";
+    const replaceStr = sub + actualFilter + "/";
+    return url.replace(sub, replaceStr);
+  },
+  getMiles(meters) {
+    const miles = meters * 0.000621371192;
+    return Math.round(miles * 100) / 100;
+  },
+  getHoursMinutes(seconds) {
+    const time = new Date(seconds * 1000).toISOString();
+    const hours = Number(time.substr(11, 2));
+    const minutes = Number(time.substr(14, 2));
+    let hoursString = "";
+    if (hours > 0) {
+      hoursString = hours > 1 ? hours + " Hours " : hours + " Hour ";
+    }
+    let minutesString = "";
+    if (minutes > 0) {
+      minutesString = minutes > 1 ? minutes + " Minutes" : minutes + " Minute";
+    }
+    return hoursString + minutesString;
   },
 };

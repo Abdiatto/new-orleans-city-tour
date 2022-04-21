@@ -14,7 +14,7 @@ import NavBar from "./components/NavBar.vue";
 
 export default {
   components: { NavBar },
-  created() {
+  mounted() {
     this.$store.dispatch("getLandmarks");
     this.$store.dispatch("getDistricts");
     this.$store.dispatch("getItineraries");
@@ -63,6 +63,7 @@ h6 {
 .form-button {
   display: flex;
   justify-content: flex-end;
+  gap: 0.5rem;
 }
 .form-error {
   color: var(--form-element-invalid-border-color);
@@ -71,6 +72,9 @@ h6 {
 .warning {
   background-color: var(--warn);
   border-color: var(--warn);
+}
+.mapboxgl-popup-content h6 {
+  font-size: 0.7rem;
 }
 @media screen and (min-width: 576px) and (max-width: 768px) {
   .container {
@@ -84,6 +88,12 @@ h6 {
   }
   .form-button {
     display: block;
+  }
+}
+
+@media (min-width: 1600px) {
+  .container {
+    max-width: 1480px;
   }
 }
 </style>
