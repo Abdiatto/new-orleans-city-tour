@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="map-container">
     <div v-if="!error" id="map"></div>
     <h4 v-else>There was an error with loading the map</h4>
   </div>
@@ -84,6 +84,8 @@ export default {
       }
     },
     geoData() {
+      maps.clearMarkers();
+      this.map.getSource("route").setData(this.nothing);
       if (this.canLoadRoute) {
         maps.clearMarkers();
         this.loadWayPoints();
@@ -99,5 +101,8 @@ export default {
   height: 600px;
   padding: 0;
   margin: 0;
+}
+.map-container {
+  margin-bottom: 1rem;
 }
 </style>

@@ -10,7 +10,7 @@
 
 <script>
 import "@picocss/pico";
-import '@/assets/icons.css'
+import "@/assets/icons.css";
 import NavBar from "./components/NavBar.vue";
 
 export default {
@@ -19,7 +19,7 @@ export default {
     this.$store.dispatch("getLandmarks");
     this.$store.dispatch("getDistricts");
     this.$store.dispatch("getItineraries");
-    this.$store.dispatch("getWeather") ;
+    this.$store.dispatch("getWeather");
   },
 };
 </script>
@@ -56,6 +56,9 @@ h5,
 h6 {
   font-family: var(--header-font-family);
   --typography-spacing-vertical: 0.2rem;
+}
+h1 {
+  color: var(--primary);
 }
 html {
   min-height: 100vh;
@@ -110,7 +113,7 @@ article {
   }
 }
 
-@media (max-width: 620px) {
+@media (max-width: 780px) {
   .form-button button {
     max-width: initial;
   }
