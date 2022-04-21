@@ -1,10 +1,7 @@
 <template>
-  <details>
-    <summary role="button" class="secondary">
-      {{ itinerary.name }}
-    </summary>
-
-    <div class="grid grid-well">
+  <div>
+    <h5>Edit Itinerary</h5>
+    <div class="grid-well">
       <div>
         <h6>Places</h6>
         <div>
@@ -33,16 +30,7 @@
         </draggable>
       </div>
     </div>
-    <div class="form-button">
-      <button class="secondary" @click="routeItinerary">Optimized Route</button>
-      <button @click="emailItinerary" class="spaced-btn secondary">
-        Email Itinerary
-      </button>
-      <button @click="deleteItinerary" class="warning spaced-btn">
-        Delete Itinerary
-      </button>
-    </div>
-  </details>
+  </div>
 </template>
 
 <script>
@@ -63,36 +51,7 @@ export default {
       return this.itinerary.itineraryId;
     },
   },
-  methods: {
-    deleteItinerary() {
-      this.$modal.show("dialog", {
-        title: "Delete " + this.itinerary.name,
-        text: "Are you sure you want to delete this itinerary?",
-        buttons: [
-          {
-            title: "Cancel",
-            handler: () => {
-              this.$modal.hide("dialog");
-            },
-          },
-          {
-            title: "Delete",
-            handler: () => {
-              this.$store.commit("REMOVE_ITINERARY", this.itinerary);
-              this.$store.dispatch("syncItineraries");
-              this.$modal.hide("dialog");
-            },
-          },
-        ],
-      });
-    },
-    emailItinerary() {
-      this.$router.push({ name: "email", params: { id: this.itineraryId } });
-    },
-    routeItinerary() {
-      this.$router.push({ name: "routes", params: { id: this.itineraryId } });
-    },
-  },
+
   props: ["itinerary"],
   watch: {
     landmarks(newValue) {
@@ -131,9 +90,6 @@ ul.well li {
   padding-left: var(--nav-element-spacing-horizontal);
 }
 @media (min-width: 768px) {
-  .grid-well.grid {
-    grid-template-columns: 1fr 1fr;
-  }
   .well {
     height: 350px;
   }

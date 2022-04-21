@@ -1,11 +1,12 @@
 <template>
   <div class="image-wrapper">
-    <img v-if="isUrl" :src="imagePath" :alt="altText" />
+    <img v-if="isUrl" :src="getUrl" :alt="altText" />
     <img v-else :src="require(`../assets/images/${imagePath.trim()}`)" />
   </div>
 </template>
 
 <script>
+import util from "@/util/util.js";
 export default {
   name: "dynamic-image",
   data() {
@@ -13,13 +14,19 @@ export default {
       isLoaded: false,
     };
   },
-  props: ["imagePath", "altText"],
+  props: ["imagePath", "altText", "filter"],
   computed: {
     isUrl() {
       return (
         this.imagePath.startsWith("https://") ||
         this.imagePath.startsWith("http://")
       );
+    },
+    getUrl() {
+      if (this.imagePath.startsWith("https://res.cloudinary.com/")) {
+        return util.composeCloudinary(this.imagePath, this.filter);
+      }
+      return this.imagePath;
     },
   },
 };

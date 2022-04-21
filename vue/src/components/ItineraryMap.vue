@@ -9,6 +9,7 @@
 import Vue from "vue";
 import MapCustomMarker from "@/components/MapCustomMarker.vue";
 import maps from "@/util/maps.js";
+import util from "@/util/util.js";
 import * as turf from "@turf/turf";
 
 export default {
@@ -53,7 +54,6 @@ export default {
       const routeGeoJSON = turf.featureCollection([turf.feature(geometry)]);
       this.map.getSource("route").setData(routeGeoJSON);
       this.geoData.waypoints.forEach((waypoint, index) => {
-        //maps.addBasicWaypoint(waypoint.location, this.map);
         const landmark = this.landmarks[index];
         this.customWayPoint(waypoint.location, landmark);
       });
@@ -63,11 +63,13 @@ export default {
       });
     },
     customWayPoint(location, landmark) {
-      const tempUrl =
-        "https://res.cloudinary.com/dd7jkh7y6/image/upload/t_point/v1649709109/uw2-public-demo-app/fvtmeekrodrbr33uw2rb.png";
+      const imageUrl = util.composeCloudinary(
+        landmark.photos[0].path,
+        "t_point"
+      );
       const MarkerClass = Vue.extend(MapCustomMarker);
       const markerInstance = new MarkerClass({
-        propsData: { imageUrl: tempUrl },
+        propsData: { imageUrl },
       });
       markerInstance.$mount();
       const html = `<h6>${landmark.name}</h6>`;
@@ -77,6 +79,13 @@ export default {
   watch: {
     canLoadRoute(value) {
       if (value) {
+        maps.clearMarkers();
+        this.loadWayPoints();
+      }
+    },
+    geoData() {
+      if (this.canLoadRoute) {
+        maps.clearMarkers();
         this.loadWayPoints();
       }
     },
