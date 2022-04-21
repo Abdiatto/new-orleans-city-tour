@@ -3,6 +3,7 @@ import Vuex from "vuex";
 import axios from "axios";
 import landmarkService from "@/services/LandmarkService.js";
 import itinerariesService from "@/services/ItinerariesService.js";
+import WeatherService from "@/services/WeatherService.js";
 
 Vue.use(Vuex);
 
@@ -30,6 +31,7 @@ export default new Vuex.Store({
     allItineraries: [],
     landmarksByItinerary: [],
     filteredLandmarks: [],
+    weather: false,
   },
   getters: {
     getAvailableLandmarks: (state) => (itinerary) => {
@@ -140,6 +142,9 @@ export default new Vuex.Store({
     SET_FIRST(state, value) {
       state.first = value;
     },
+    SET_WEATHER(state, value) {
+      state.weather = value;
+    }
     
   },
   actions: {
@@ -173,5 +178,11 @@ export default new Vuex.Store({
           commit("SET_LANDMARKS_BY_ITINERARY", response.data);
         });
     },
+    getWeather({ commit }) {
+      WeatherService.getCurrent().then((response) => {
+        commit("SET_WEATHER", response.data);
+        console.log(response.data);
+      });
+    }
   },
 });

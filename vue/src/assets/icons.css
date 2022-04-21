@@ -1,0 +1,72 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?fmdf7x');
+  src:  url('fonts/icomoon.eot?fmdf7x#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?fmdf7x') format('truetype'),
+    url('fonts/icomoon.woff?fmdf7x') format('woff'),
+    url('fonts/icomoon.svg?fmdf7x#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-cloud-sun-lightning:before {
+  content: "\e900";
+}
+.icon-cloud-moon-lightning:before {
+  content: "\e901";
+}
+.icon-cloud-raindrops:before {
+  content: "\e902";
+}
+.icon-cloud-raindrops1:before {
+  content: "\e903";
+}
+.icon-cloud-sun-raindrops:before {
+  content: "\e904";
+}
+.icon-cloud-moon-raindrops:before {
+  content: "\e905";
+}
+.icon-cloud-sun-snowflakes:before {
+  content: "\e906";
+}
+.icon-cloud-moon-snowflakes:before {
+  content: "\e907";
+}
+.icon-cloud-fog:before {
+  content: "\e908";
+}
+.icon--cloud-sun-fog:before {
+  content: "\e909";
+}
+.icon-cloud-moon-fog:before {
+  content: "\e90a";
+}
+.icon-sun:before {
+  content: "\e90d";
+}
+.icon-clouds:before {
+  content: "\e90b";
+}
+.icon-clouds1:before {
+  content: "\e90c";
+}
+.icon-moon:before {
+  content: "\e90e";
+}

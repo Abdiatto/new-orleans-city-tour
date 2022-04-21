@@ -10,6 +10,7 @@
 
 <script>
 import "@picocss/pico";
+import '@/assets/icons.css'
 import NavBar from "./components/NavBar.vue";
 
 export default {
@@ -18,6 +19,7 @@ export default {
     this.$store.dispatch("getLandmarks");
     this.$store.dispatch("getDistricts");
     this.$store.dispatch("getItineraries");
+    this.$store.dispatch("getWeather") ;
   },
 };
 </script>

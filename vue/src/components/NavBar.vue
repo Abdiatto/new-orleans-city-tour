@@ -25,18 +25,23 @@
       <li>Welcome, {{ getUsername }}.</li>
       <li><router-link v-bind:to="{ name: 'logout' }">Logout</router-link></li>
     </ul>
+    <weather/>
   </nav>
 </template>
 
 <script>
+import Weather from '@/components/Weather.vue';
 export default {
   name: "nav-bar",
   data() {
+
     return {
       showMenu: true,
     };
   },
+  components: {Weather},
   computed: {
+  
     isLoggedIn() {
       return this.$store.getters.isUserLoggedIn();
     },
