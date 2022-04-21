@@ -126,6 +126,7 @@ export default new Vuex.Store({
     SET_FIRST(state, value) {
       state.first = value;
     },
+    
   },
   actions: {
     getLandmarks({ state, commit }) {

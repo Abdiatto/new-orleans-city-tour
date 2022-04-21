@@ -33,8 +33,10 @@ export default {
         return landmark.landMarkId == this.$store.state.activeLandmarkId;
       });
     },
+
   },
 };
+
 </script>
 
 <style scoped>
