@@ -13,18 +13,24 @@
         >
       </li>
     </ul>
+    <weather/>
   </nav>
 </template>
 
 <script>
+import Weather from '@/components/Weather.vue';
 export default {
   name: "nav-bar",
   data() {
+
     return {
       showMenu: true,
     };
   },
-  computed: {},
+  computed: {
+    
+  },
+  components: {Weather}
 };
 </script>
 

@@ -20,6 +20,7 @@
 <script>
 import LandmarkCard from "@/components/LandmarkCard.vue";
 import FilterSearch from "@/components/FilterSearch.vue";
+//import Weather from "@/components/Weather.vue";
 
 export default {
   name: "home",
