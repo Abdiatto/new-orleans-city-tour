@@ -4,14 +4,14 @@
       <label>Name</label>
       <input
         type="text"
-        v-model="name"
+        :value="getName"
         name="to_name"
         placeholder="Your Name"
       />
       <label>Email</label>
       <input
         type="email"
-        v-model="email"
+        :value = "getEmail"
         name="to_email"
         placeholder="Your Email"
       />
@@ -31,12 +31,14 @@ export default {
   name: "email-form",
   data() {
     return {
-      name: "",
-      email: "",
+      // name: this.getName,
+      // email: this.getEmail
     };
   },
   props: ["itinerary"],
   computed: {
+    getName() { return this.$store.state.user.username},
+    getEmail() { return this.$store.state.user.email},
     landmarks() {
       const items = this.$store.getters.getLandmarksByItinerary(
         this.itinerary.itineraryId
