@@ -1,8 +1,6 @@
 <template>
   <details>
-    <summary role="button" class="secondary">
-      Filter
-    </summary>
+    <summary role="button" class="secondary">Filter</summary>
     <div class="filter-grid">
       <label for="geocoder" id="geocoder-label">
         Starting Point

@@ -70,15 +70,16 @@ export default new Vuex.Store({
       return Object.entries(state.user).length !== 0;
     },
     getUsername: (state) => () => {
-      if (Object.entries(state.user).length !== 0) 
-        return state.user.username;
-      else
-        return "";
+      if (Object.entries(state.user).length !== 0) return state.user.username;
+      else return "";
     },
     isUserAdmin: (state) => () => {
       console.log(state.user.role);
-      return (Object.entries(state.user).length !== 0) && state.user.role.includes('ROLE_ADMIN');
-    }
+      return (
+        Object.entries(state.user).length !== 0 &&
+        state.user.role.includes("ROLE_ADMIN")
+      );
+    },
   },
 
   mutations: {
@@ -106,6 +107,9 @@ export default new Vuex.Store({
     },
     SET_LANDMARKS(state, landmarks) {
       state.allLandmarks = landmarks;
+    },
+    PUSH_LANDMARKS(state, landmark) {
+      state.allLandmarks.push(landmark);
     },
     SET_DISTRICTS(state, districts) {
       state.allDistricts = districts;
@@ -144,8 +148,7 @@ export default new Vuex.Store({
     },
     SET_WEATHER(state, value) {
       state.weather = value;
-    }
-    
+    },
   },
   actions: {
     getLandmarks({ state, commit }) {
@@ -183,6 +186,6 @@ export default new Vuex.Store({
         commit("SET_WEATHER", response.data);
         console.log(response.data);
       });
-    }
+    },
   },
 });

@@ -86,8 +86,9 @@
             v-for="district in $store.state.allDistricts"
             :value="district.districtId"
             :key="district.districtId"
-            >{{ district.name }}</option
           >
+            {{ district.name }}
+          </option>
         </select>
         <small v-show="!formErrors.district_id.isValid" class="form-error">{{
           formErrors.district_id.message
@@ -198,9 +199,12 @@ export default {
           if (r.status >= 200 && r.status < 300) {
             this.newLandmark.photoPath = r.data.secure_url;
             landmarkService.addLandmark(this.newLandmark).then(() => {
-              this.$store.dispatch("getLandmarks");
-              this.$store.dispatch("getDistricts");
-              this.$router.push({ name: "home" });
+              landmarkService.getLandmarks().then((response) => {
+                this.$store.commit("SET_LANDMARKS", response.data);
+                this.$store.dispatch("getLandmarks");
+                this.$store.dispatch("getDistricts");
+                this.$router.push({ name: "home" });
+              });
             });
           }
         });
